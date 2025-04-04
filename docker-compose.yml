@@ -1,0 +1,9 @@
+services:
+  frontend:
+    build:
+      context: ./travelpoints_frontend
+      dockerfile: Dockerfile
+    container_name: react-app
+    restart: always
+    ports:
+      - "3000:3000"
