@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import HomeTourist from './pages/HomeTourist';
+import HomeAdmin from './pages/HomeAdmin';
+import Register from './pages/Register';
+import './index.css';
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Welcome to DISI project</h1>
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                {/* pagina principala MOMENTAN*/}
+                <Route path="/" element={<Register />} />
+
+                <Route path="/sign-up" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/home-user" element={<HomeTourist />} />
+                <Route path="/home-admin" element={<HomeAdmin />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
