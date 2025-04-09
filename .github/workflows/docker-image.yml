@@ -1,0 +1,24 @@
+name:  CI Docker
+
+on:
+  push:
+    branches: [ "main" ]
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
+        run: echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin
+      - name: Build the Frontend Docker Image
+        run: docker build -t floareoctavian/travelpoints-frontend ./travelpoints_frontend
+      - name: Push Image to Docker Hub
+        run: docker push floareoctavian/travelpoints-frontend:latest
