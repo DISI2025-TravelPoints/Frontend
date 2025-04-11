@@ -7,3 +7,11 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    networks:
+      - local-travelpoints-network
+
+
+networks:
+  local-travelpoints-network:
+    name: local-travelpoints-network
+    driver: bridge
