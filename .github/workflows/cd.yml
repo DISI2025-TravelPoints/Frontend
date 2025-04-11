@@ -1,0 +1,29 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Docker"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Login to docker hub
+        run: echo ${{secrets.DOCKER_TOKEN}} | docker login -u ${{secrets.DOCKER_USERNAME}} --password-stdin
+      - name: Pull User Service Docker Image from HUB
+        run: sudo docker pull floareoctavian/travelpoints-frontend:latest
+      - name: Delete old docker containers
+        run: sudo docker rm -f frontend-container || true
+      - name: Run Docker Container
+        run: |
+          sudo docker run -d -p 3000:3000 --name frontend-container --network travelpoints-network floareoctavian/travelpoints-frontend
+
+
+
+
+
+
+
