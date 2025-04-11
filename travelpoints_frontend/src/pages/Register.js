@@ -6,7 +6,7 @@ import userApi from '../api';
 
 
 const Register = () => {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Register = () => {
     const handleRegister = async () => {
         try {
             await userApi.post('/api/user/register', {
-                name: username,
+                name: name,
                 email: email,
                 password: password
             });
@@ -39,26 +39,33 @@ const Register = () => {
                 <input
                     className="auth-input"
                     type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    name="registerName"
+                    placeholder="Full Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    autoComplete="off"
                 />
 
                 <input
                     className="auth-input"
                     type="email"
+                    name="registerEmail"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="off"
                 />
 
                 <input
                     className="auth-input"
                     type="password"
+                    name="registerPassword"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="new-password"
                 />
+
 
                 <button className="auth-btn" onClick={handleRegister}>
                     Sign up
