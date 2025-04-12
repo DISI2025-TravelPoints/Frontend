@@ -3,69 +3,104 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 import bgImage from '../assets/rectangle-11.png';
 import userApi from '../api';
-
+import { validateName, validateEmail, validatePassword } from '../utils/Validators';
 
 const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [nameError, setNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
     const navigate = useNavigate();
 
     const handleRegister = async () => {
+        const nameErr = validateName(name);
+        const emailErr = validateEmail(email);
+        const passwordErr = validatePassword(password);
+
+        setNameError(nameErr);
+        setEmailError(emailErr);
+        setPasswordError(passwordErr);
+
+        if (nameErr || emailErr || passwordErr) {
+            return;
+        }
+
         try {
             await userApi.post('/api/user/register', {
-                name: name,
-                email: email,
-                password: password
+                name,
+                email,
+                password
             });
             console.log('Cont creat cu succes!');
             navigate('/login');
         } catch (error) {
-            const errorMsg =
-                error.response?.data?.message || error.response?.data || error.message;
+            const errorMsg = error.response?.data?.message || error.message;
+
             console.error('Eroare la înregistrare:', errorMsg);
+
+            if (errorMsg.toLowerCase().includes("emailul este deja înregistrat")) { // recives it in ro from backend
+                // setEmailError("An account with this email already exists.");
+                // choosed a shorter version to fit the backround better
+                setEmailError("Account already exists.");
+            }
         }
     };
 
-    const handleGoToLogin = () => {
-        navigate('/login');
-    };
-
     return (
-        <div className="auth-wrapper" style={{backgroundImage: `url(${bgImage})`}}>
+        <div className="auth-wrapper" style={{ backgroundImage: `url(${bgImage})` }}>
             <div className="auth-content">
                 <h1 className="auth-title">Create Account</h1>
 
-                <input
-                    className="auth-input"
-                    type="text"
-                    name="registerName"
-                    placeholder="Full Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    autoComplete="off"
-                />
+                <div className="input-group">
+                    <input
+                        className={`auth-input ${nameError ? 'error' : ''}`}
+                        type="text"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => {
+                            setName(e.target.value);
+                            setNameError(validateName(e.target.value));
+                        }}
+                        autoComplete="off"
+                    />
+                    {nameError && <p className="error-message">{nameError}</p>}
+                </div>
 
-                <input
-                    className="auth-input"
-                    type="email"
-                    name="registerEmail"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="off"
-                />
 
-                <input
-                    className="auth-input"
-                    type="password"
-                    name="registerPassword"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="new-password"
-                />
+                <div className="input-group">
+                    <input
+                        className={`auth-input ${emailError ? 'error' : ''}`}
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            setEmailError(validateEmail(e.target.value)); // actualizează live
+                        }}
+                        autoComplete="off"
+                    />
+                    {emailError && <p className="error-message">{emailError}</p>}
+                </div>
 
+
+                <div className="input-group">
+                    <input
+                        className={`auth-input ${passwordError ? 'error' : ''}`}
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setPasswordError(validatePassword(e.target.value));
+                        }}
+                        autoComplete="new-password"
+                    />
+                    {passwordError && <p className="error-message">{passwordError}</p>}
+                </div>
 
                 <button className="auth-btn" onClick={handleRegister}>
                     Sign up
@@ -74,10 +109,9 @@ const Register = () => {
 
             <p className="auth-footer">
                 Already have an account?
-                <span className="link" onClick={handleGoToLogin}> Login</span>
+                <span className="link" onClick={() => navigate('/login')}> Login</span>
             </p>
         </div>
-
     );
 };
 
