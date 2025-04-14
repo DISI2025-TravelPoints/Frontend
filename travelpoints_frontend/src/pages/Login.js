@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 import bgImage from '../assets/rectangle-11.png';
+import { jwtDecode } from 'jwt-decode';
+import userApi from '../api';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         let emailValid = true;
         let passwordValid = true;
 
@@ -20,20 +21,58 @@ const Login = () => {
             setEmailError("Email is required.");
             emailValid = false;
         } else {
-            setEmailError("");
+            setEmailError('');
         }
 
         if (!password) {
             setPasswordError("Password is required.");
             passwordValid = false;
         } else {
-            setPasswordError("");
+            setPasswordError('');
         }
 
         if (!emailValid || !passwordValid) return;
 
-        // aici va fi legat de backend mai târziu
-        console.log("Logging in with:", email, password);
+        try {
+            const response = await userApi.post('/api/user/login', { email, password });
+            const token = response.data;
+            localStorage.setItem('token', token);
+
+            const storedToken = localStorage.getItem('token');
+            if (!storedToken || storedToken.trim() === '') {
+                navigate('/unauthorized');
+                return;
+            }
+
+            const decoded = jwtDecode(storedToken);
+            const role = decoded.role;
+            console.log("Login reușit:", { email: decoded.sub, role });
+
+            if (role === 'Admin') {
+                navigate('/home-admin');
+            } else if (role === 'Tourist') {
+                navigate('/home-tourist');
+            } else {
+                navigate('/unauthorized');
+            }
+
+        } catch (error) {
+            console.error("Eroare la login:", error);
+
+            if (error.response) {
+                const backendMessage = error.response.data?.message || error.response.data;
+
+                if (backendMessage === "Email inexistent.") {
+                    setEmailError("No account with this email.");
+                } else if (backendMessage === "Parolă incorectă.") {
+                    setPasswordError("Incorrect password.");
+                } else {
+                    alert("Eroare neașteptată: " + backendMessage);
+                }
+            } else {
+                alert("A apărut o eroare. Încearcă din nou.");
+            }
+        }
     };
 
     return (
@@ -74,12 +113,12 @@ const Login = () => {
                 <button className="auth-btn" onClick={handleLogin}>
                     Login
                 </button>
-            </div>
 
-            <p className="auth-footer">
-                Don't have an account?
-                <span className="link" onClick={() => navigate('/register')}> Sign up</span>
-            </p>
+                <p className="auth-footer">
+                    Don't have an account?
+                    <span className="link" onClick={() => navigate('/register')}> Sign up</span>
+                </p>
+            </div>
         </div>
     );
 };
