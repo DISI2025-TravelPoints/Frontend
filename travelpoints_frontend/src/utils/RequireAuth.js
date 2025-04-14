@@ -1,26 +1,11 @@
-// components/RequireAuth.js
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import { getRoleFromToken } from './Auth';
 
-const RequireAuth = ({ children, allowedRoles }) => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-        return <Navigate to="/unauthorized" replace />;
-    }
-
-    try {
-        const decoded = jwtDecode(token);
-        const role = decoded.role;
-
-        if (!allowedRoles.includes(role)) {
-            return <Navigate to="/unauthorized" replace />;
-        }
-
-        return children;
-    } catch (err) {
-        return <Navigate to="/unauthorized" replace />;
-    }
+const RequireAuth = ({ allowedRoles, children }) => {
+    const role = getRoleFromToken();
+    if (!role) return <Navigate to="/login" />;
+    return allowedRoles.includes(role) ? children : <Navigate to="/unauthorized" />;
 };
 
 export default RequireAuth;

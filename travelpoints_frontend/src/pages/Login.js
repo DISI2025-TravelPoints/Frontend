@@ -2,60 +2,37 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 import bgImage from '../assets/rectangle-11.png';
-import { jwtDecode } from 'jwt-decode';
 import userApi from '../api';
+import { validateEmailRequired, validatePassword } from '../utils/Validators';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
     const navigate = useNavigate();
 
+
     const handleLogin = async () => {
-        let emailValid = true;
-        let passwordValid = true;
+        const emailErrorMsg = validateEmailRequired(email);
+        const passwordErrorMsg = validatePassword(password);
 
-        if (!email) {
-            setEmailError("Email is required.");
-            emailValid = false;
-        } else {
-            setEmailError('');
-        }
+        setEmailError(emailErrorMsg);
+        setPasswordError(passwordErrorMsg);
 
-        if (!password) {
-            setPasswordError("Password is required.");
-            passwordValid = false;
-        } else {
-            setPasswordError('');
-        }
-
-        if (!emailValid || !passwordValid) return;
+        if (emailErrorMsg || passwordErrorMsg) return;
 
         try {
             const response = await userApi.post('/api/user/login', { email, password });
             const token = response.data;
             localStorage.setItem('token', token);
 
-            const storedToken = localStorage.getItem('token');
-            if (!storedToken || storedToken.trim() === '') {
+            if (!token || token.trim() === '') {
                 navigate('/unauthorized');
                 return;
             }
-
-            const decoded = jwtDecode(storedToken);
-            const role = decoded.role;
-            console.log("Login reușit:", { email: decoded.sub, role });
-
-            if (role === 'Admin') {
-                navigate('/home-admin');
-            } else if (role === 'Tourist') {
-                navigate('/home-tourist');
-            } else {
-                navigate('/unauthorized');
-            }
-
+            // redirect catre pagina comuna
+            navigate('/home');
         } catch (error) {
             console.error("Eroare la login:", error);
 
@@ -67,7 +44,7 @@ const Login = () => {
                 } else if (backendMessage === "Parolă incorectă.") {
                     setPasswordError("Incorrect password.");
                 } else {
-                    alert("Eroare neașteptată: " + backendMessage);
+                    alert("Unexpected error: " + backendMessage);
                 }
             } else {
                 alert("A apărut o eroare. Încearcă din nou.");
