@@ -8,25 +8,10 @@ const userApi = axios.create({
     }
 });
 
-// userApi.interceptors.request.use(
-//     (config) => {
-//         const token = localStorage.getItem("token");
-//
-//         const isAuthEndpoint = config.url.includes("/login") || config.url.includes("/register");
-//         if (!isAuthEndpoint && token) {
-//             config.headers["Authorization"] = `Bearer ${token}`;
-//         }
-//
-//         return config;
-//     },
-//     (error) => Promise.reject(error)
-// );
-
 userApi.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
 
-        // 🔥 EXTINDEM endpoint-urile care NU cer token
         const isPublicEndpoint =
             config.url.includes("/login") ||
             config.url.includes("/register") ||

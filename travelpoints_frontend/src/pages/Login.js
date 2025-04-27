@@ -95,15 +95,7 @@ const Login = () => {
             </span>
                         </div>
                     </div>
-
-                    {/*{passwordError && <p className="error-message">{passwordError}</p>}*/}
                 </div>
-
-                {/*<div className="forgot-password-link">*/}
-                {/*    <span onClick={() => navigate('/forgot-pass')}>*/}
-                {/*            Forgot password?*/}
-                {/*    </span>*/}
-                {/*</div>*/}
 
                 <button className="auth-btn" onClick={handleLogin}>
                     Login

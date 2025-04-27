@@ -165,11 +165,10 @@ input:-webkit-autofill {
 
 .forgot-password-link {
     font-size: 14px;
-    color: #023216;
+    color: #09611a;
     cursor: pointer;
     text-decoration: underline;
 }
-
 
 /*format fixes*/
 html, body {
