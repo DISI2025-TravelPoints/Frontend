@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import HomeTourist from './pages/HomeTourist';
+
 import HomeAdmin from './pages/HomeAdmin';
-import Register from './pages/Register';
+
+import CreateAttraction from './components/CreateAttraction';
+import UpdateAttraction from './components/UpdateAttraction'; 
 import './index.css';
 
 function App() {
@@ -11,12 +12,13 @@ function App() {
         <BrowserRouter>
             <Routes>
                 {/* pagina principala MOMENTAN*/}
-                <Route path="/" element={<Register />} />
+                
+                <Route path="/home-admin" element={<HomeAdmin />}/>
+                <Route path="/create-attraction" element={<CreateAttraction />} />
+                <Route path="/update-attraction/:attractionId" element={<UpdateAttraction />} />
 
-                <Route path="/sign-up" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/home-user" element={<HomeTourist />} />
-                <Route path="/home-admin" element={<HomeAdmin />} />
+          
+
             </Routes>
         </BrowserRouter>
     );
