@@ -12,9 +12,10 @@ export async function getAllAttractions() {
             withCredentials: true
         });
 
-        console.log(res);
+        console.log(res.data);
         return res.data;
     } catch (error) {
         console.error('Error fetching attractions:', error);
+        return [];
     }
 }
