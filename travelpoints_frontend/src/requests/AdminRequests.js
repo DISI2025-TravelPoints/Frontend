@@ -19,3 +19,20 @@ export async function getAllAttractions() {
         return [];
     }
 }
+
+export async function createAttraction(attraction, file) {
+    const formData = new FormData();
+    const blob = new Blob([file], {type:'application/octet-stream'});
+    formData.append('attraction', new Blob([JSON.stringify(attraction)], { type: 'application/json' }));
+    formData.append('file', blob);
+    try {
+        const response = await axios.post('http://localhost/api/attraction', formData);
+
+        console.log('Attraction created successfully:', response.data);
+        return response.status;
+    } catch (error) {
+        console.error('Error creating attraction:', error);
+        return error.response?.status;
+    }
+
+}
