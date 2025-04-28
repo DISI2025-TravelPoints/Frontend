@@ -5,7 +5,7 @@ const ATTRACTIONS_API = "/api/attraction";
 
 export async function getAllAttractions() {
     try {
-        let res = await axios.get("http://localhost/api/attraction", {
+        let res = await axios.get(`http://localhost${ATTRACTIONS_API}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -25,14 +25,23 @@ export async function createAttraction(attraction, file) {
     const blob = new Blob([file], {type:'application/octet-stream'});
     formData.append('attraction', new Blob([JSON.stringify(attraction)], { type: 'application/json' }));
     formData.append('file', blob);
-    try {
-        const response = await axios.post('http://localhost/api/attraction', formData);
+    const response = await axios.post(`http://localhost${ATTRACTIONS_API}`, formData);
+    console.log('Attraction created successfully:', response.data);
+    return response.status;
+}
 
-        console.log('Attraction created successfully:', response.data);
+export async function deleteAttraction(attractionId) {
+    try {
+        const response = await axios.delete(`http://localhost${ATTRACTIONS_API}/${attractionId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true
+        });
+        console.log('Attraction deleted successfully:', response.data);
         return response.status;
     } catch (error) {
-        console.error('Error creating attraction:', error);
-        return error.response?.status;
+        console.error('Error deleting attraction:', error);
+        return null;
     }
-
 }

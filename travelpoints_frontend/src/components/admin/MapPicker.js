@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -20,9 +20,9 @@ const greenIcon = new L.Icon({
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
   });
-  
+
 //FIXME : this component takes a lot of time to load the map, maybe we can use a loading spinner or something like that
-const MapPicker = ({ onLocationSelected }) => {
+const MapPicker = ({ onLocationSelected, position }) => {
     const [initialLocationSet, setInitialLocationSet] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState(null);
 
@@ -51,9 +51,14 @@ const MapPicker = ({ onLocationSelected }) => {
     );
   }
  
+  const defaultCenter = { lat: 51.505, lng: -0.09 };
+  const center = position ? 
+    { lat: position[0], lng: position[1] } : 
+    defaultCenter;
+
   return (
     <MapContainer
-      center={{ lat: 51.505, lng: -0.09 }}
+      center={center}
       zoom={13}
       scrollWheelZoom={false}
       style={{ height: "600px", width: "100%" }}>
@@ -61,6 +66,9 @@ const MapPicker = ({ onLocationSelected }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {position && <Marker position={position} icon={greenIcon}>
+        <Popup>{position[0]}, {position[1]}</Popup>
+      </Marker>}
       <LocationMarker />
     </MapContainer>
   );

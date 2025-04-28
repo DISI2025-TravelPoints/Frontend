@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getAllAttractions, createAttraction } from '../requests/AdminRequests';
+import { getAllAttractions, createAttraction, deleteAttraction } from '../requests/AdminRequests';
 import { S3_BUCKET_PUBLIC_URL } from '../requests/S3Bucket';
 import ReactPlayer from 'react-player';
 import {Button, Input, Space, Table, Modal, Form} from 'antd';
@@ -35,6 +35,19 @@ const HomeAdmin = () => {
             audioFile: file, 
         });
         //console.log('Selected file:', file);
+    };
+
+    const handleAttractionDeleteion = async (id) =>{
+        const res = await deleteAttraction(id);
+        if (res === 200) {
+            alert("Attraction deleted successfully");
+        } else {
+            alert("Error deleting attraction");
+        }
+    }
+
+    const handleAttractionUpdate = async (id) =>{
+
     }
     
     const columns = [
@@ -102,14 +115,33 @@ const HomeAdmin = () => {
             key: 'action',
             render: (_, record) => record.isAddButton ? null : (
                 <Space size="middle">
-                <Button type="primary" onClick={() => console.log("Edit", record)}>Edit</Button>
-                <Button type="primary" danger onClick={() => console.log("Delete", record)}>Delete</Button>
+                <Button type="primary" onClick={(e) => {
+                    setIsEditModalOpen(true);
+                    form.setFieldsValue({
+                        name: record.name,
+                        description: record.description,
+                        entryFee: record.entryFee,
+                        coordinates: [record.latitude, record.longitude],
+                        audioFile: record.audioFilePath,
+                    });
+                    setName(record.name);
+                    setDescription(record.description);
+                    setEntryFee(record.entryFee);
+                    setLatitude(record.latitude);
+                    setLongitude(record.longitude);
+                    handleAttractionUpdate(record.id);
+                }}>Edit</Button>
+                <Button type="primary" danger onClick={(e) =>{
+                    setData(prev => prev.filter(item => item.id !== record.id));
+                    handleAttractionDeleteion(record.id);
+                } }>Delete</Button>
                 </Space>
             ),
         }
     ];
     
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [form] = Form.useForm(); 
     
     const [selectedSetting, setSelectedSetting] = useState("attractions");
@@ -155,6 +187,8 @@ const HomeAdmin = () => {
         }
     },[selectedSetting]);
     
+//TODO return the created instance to update the table for a faster experience
+
     return (
         <>
         <div className="admin-sidebar-container">
@@ -201,13 +235,13 @@ const HomeAdmin = () => {
                     longitude: longitude,
                 }
                 let res = createAttraction(attraction, audioFile);
-                if (res === 200) {
-                    alert("Attraction created successfully");
+                if (res === 201) {
+                    //alert("Attraction created successfully");
+                    form.resetFields();
+                    setIsModalOpen(false);
                 } else {
                     alert("Error creating attraction");
                 }
-                form.resetFields();
-                setIsModalOpen(false);
             })
             .catch(info => {
                 console.log('Validate Failed:', info);
@@ -241,7 +275,76 @@ const HomeAdmin = () => {
         label="Coordinates"
         rules={[{ required: true, message: 'Please input the coordinates!' }]}
         >
-        <MapPicker onLocationSelected={handleLocationSelected} />
+        <MapPicker onLocationSelected={handleLocationSelected} position={null}/>
+        </Form.Item>
+        <Form.Item
+        name="audioFile"
+        label="Audio File"
+        rules={[{ required: true, message: 'Please input the audio file!' }]}
+        >
+        <AudioFileUploader uploadFile={handleFileUpload} />
+        </Form.Item>
+        </Form>
+        </Modal>
+
+        <Modal
+            title="Update Attraction"
+            open={isEditModalOpen}
+        onCancel={() => setIsEditModalOpen(false)}
+        okText="Update"
+        onOk={() => {
+            form
+            .validateFields()
+            .then(_ => {
+                const attraction = {
+                    name: name,
+                    description: description,
+                    entryFee: entryFee,
+                    latitude: latitude,
+                    longitude: longitude,
+                }
+                let res = createAttraction(attraction, audioFile);
+                if (res === 201) {
+                    //alert("Attraction created successfully");
+                    form.resetFields();
+                    setIsModalOpen(false);
+                } else {
+                    alert("Error creating attraction");
+                }
+            })
+            .catch(info => {
+                console.log('Validate Failed:', info);
+            });
+        }}
+        >
+        <Form form={form} layout="vertical">
+        <Form.Item
+        name="name"
+        label="Name"
+        rules={[{ required: true, message: 'Please input the name!' }]}
+        >
+        <Input onChange={(e)=>{setName(e.target.value)}}/>
+        </Form.Item>
+        <Form.Item
+        name="description"
+        label="Description"
+        rules={[{ required: true, message: 'Please input the description!' }]}
+        >
+        <Input  onChange={(e)=>{setDescription(e.target.value)}}/>
+        </Form.Item>
+        <Form.Item
+        name="entryFee"
+        label="Entry Fee"
+        rules={[{ required: true, message: 'Please input the entry fee!' }]}
+        >
+        <Input type='number' onChange={(e)=>{setEntryFee(parseFloat(e.target.value))}}/>
+        </Form.Item>
+        <Form.Item
+        name="coordinates"
+        label="Coordinates"
+        rules={[{ required: true, message: 'Please input the coordinates!' }]}
+        >
+        <MapPicker onLocationSelected={handleLocationSelected} position={[latitude,longitude]} />
         </Form.Item>
         <Form.Item
         name="audioFile"
