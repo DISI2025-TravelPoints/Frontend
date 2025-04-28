@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import '../styles/Landing.css';
 import { getRoleFromToken } from '../utils/Auth';
+import GeoLocation from '../utils/GeoLocation';
 
 const Landing = () => {
     const navigate = useNavigate();
     const [userRole, setUserRole] = useState(null);
+    const [userGeohash, setUserGeohash] = useState(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     useEffect(() => {
@@ -74,6 +76,9 @@ const Landing = () => {
                             <>Discover the most spectacular tourist attractions in Romania and around the world.<br />Search, save, and explore.</>
                         )}
                     </p>
+                </div>
+                <div className="landing-map">
+                <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
                 </div>
             </div>
         </div>
