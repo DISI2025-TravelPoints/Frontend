@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getAllAttractions, createAttraction, deleteAttraction } from '../requests/AdminRequests';
+import { getAllAttractions, createAttraction, deleteAttraction, updateAttraction } from '../requests/AdminRequests';
 import { S3_BUCKET_PUBLIC_URL } from '../requests/S3Bucket';
 import ReactPlayer from 'react-player';
 import {Button, Input, Space, Table, Modal, Form} from 'antd';
@@ -18,7 +18,7 @@ const HomeAdmin = () => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [audioFile, setAudioFile] = useState(null);
-
+    const [selectedAttraction, setSelectedAttraction] = useState(null);
     // TODO : break attraction creation into a separate component
     const handleLocationSelected = (location) => {
         setLatitude(parseFloat(location[0]));
@@ -47,7 +47,20 @@ const HomeAdmin = () => {
     }
 
     const handleAttractionUpdate = async (id) =>{
-
+        const updatedAttraction = {
+            name: name,
+            description: description,
+            entryFee: entryFee,
+            latitude: latitude,
+            longitude: longitude,     
+        }
+        const updatedFile = audioFile ? audioFile : null;
+        const res = await updateAttraction(id, updatedAttraction, updatedFile);
+        if (res === 200) {
+            alert("Attraction updated successfully");
+        } else {
+            alert("Error updating attraction");
+        }
     }
     
     const columns = [
@@ -129,7 +142,7 @@ const HomeAdmin = () => {
                     setEntryFee(record.entryFee);
                     setLatitude(record.latitude);
                     setLongitude(record.longitude);
-                    handleAttractionUpdate(record.id);
+                    setSelectedAttraction(record.id);
                 }}>Edit</Button>
                 <Button type="primary" danger onClick={(e) =>{
                     setData(prev => prev.filter(item => item.id !== record.id));
@@ -296,21 +309,9 @@ const HomeAdmin = () => {
             form
             .validateFields()
             .then(_ => {
-                const attraction = {
-                    name: name,
-                    description: description,
-                    entryFee: entryFee,
-                    latitude: latitude,
-                    longitude: longitude,
-                }
-                let res = createAttraction(attraction, audioFile);
-                if (res === 201) {
-                    //alert("Attraction created successfully");
-                    form.resetFields();
-                    setIsModalOpen(false);
-                } else {
-                    alert("Error creating attraction");
-                }
+                handleAttractionUpdate(selectedAttraction);
+                form.resetFields();
+                setIsEditModalOpen(false);
             })
             .catch(info => {
                 console.log('Validate Failed:', info);
