@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import LandingPage from "./pages/LandingPage";
 import Unauthorized from './pages/Unauthorized';
-import RequireAuth from './utils/RequireAuth';
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import HomeAdmin from './pages/HomeAdmin';
@@ -19,11 +18,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 {/* pagina principala MOMENTAN*/}
-                <Route path="/home-admin" element={<HomeAdmin />}/>
-                <Route path="/create-attraction" element={<CreateAttraction />} />
-                <Route path="/update-attraction/:attractionId" element={<UpdateAttraction />} />
-
-
+             
                 <Route path="/" element={<LandingPage/>} />
 
                 <Route path="/register" element={<Register />} />

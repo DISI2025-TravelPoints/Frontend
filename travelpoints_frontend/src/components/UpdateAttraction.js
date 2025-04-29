@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import attractionApi from '../api/attractionApi'; 
+import attractionApi from '../attractionApi'; 
 
 import '../styles/FormAttraction.css';
 import bgImage from '../assets/rectangle-11.png';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/FormAttraction.css'; 
 import { useNavigate } from 'react-router-dom';
-import attractionApi from '../api/attractionApi'; 
+import attractionApi from '../attractionApi'; 
 import bgImage from '../assets/rectangle-11.png';
 
 const CreateAttraction = () => {
