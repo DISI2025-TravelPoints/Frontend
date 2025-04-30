@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import attractionApi from '../attractionApi';
 import '../styles/FormAttraction.css';
 
 function HomeAdmin() {
@@ -13,7 +14,7 @@ function HomeAdmin() {
 
     const fetchAttractions = async () => {
         try {
-            const response = await axios.get('http://localhost:8082/api/attraction');
+            const response = await attractionApi.get('/api/attraction');
             setAttractions(response.data);
         } catch (error) {
             console.error('Error loading attractions:', error);
@@ -35,7 +36,7 @@ function HomeAdmin() {
         const formattedId = formatUUID(id);
         if (window.confirm('Are you sure you want to delete this attraction?')) {
             try {
-                await axios.delete(`http://localhost:8082/api/attraction/${formattedId}`);
+                await attractionApi.delete(`/api/attraction/${formattedId}`);
                 alert('Attraction deleted successfully!');
                 fetchAttractions();
             } catch (error) {
