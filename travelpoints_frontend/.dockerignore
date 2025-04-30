@@ -1,0 +1,26 @@
+# Dependency directories
+./node_modules
+
+# Build output
+./build
+**/build
+
+# Logs
+*.log
+./logs
+
+# VCS
+.git
+.gitignore
+
+# Editor configs
+.vscode
+.editorconfig
+
+# OS-specific
+.DS_Store
+./Thumbs.db
+
+# npm/yarn cache
+.npm
+.yarn
