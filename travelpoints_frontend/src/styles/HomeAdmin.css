@@ -13,6 +13,7 @@
 
 .admin-content{
     margin-left:15%;
+
 }
 
 .admin-button{
@@ -36,5 +37,11 @@
     background-color: #36a76f;
     cursor: pointer;
 
+}
+
+.admin-audio-player{
+    width: "100%";
+    max-width: 400px;
+    margin: "0 auto";
 }
 
