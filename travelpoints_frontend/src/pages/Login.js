@@ -84,7 +84,17 @@ const Login = () => {
                         }}
                         autoComplete="current-password"
                     />
-                    {passwordError && <p className="error-message">{passwordError}</p>}
+
+                    <div className="error-forgot-container">
+                        <div className="left-error">
+                            {passwordError && <p className="error-message">{passwordError}</p>}
+                        </div>
+                        <div className="right-forgot">
+            <span className="forgot-password-link" onClick={() => navigate('/forgot-pass')}>
+                Forgot password?
+            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <button className="auth-btn" onClick={handleLogin}>
