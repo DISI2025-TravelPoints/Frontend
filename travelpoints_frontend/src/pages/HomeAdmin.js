@@ -8,6 +8,7 @@ import {
   deleteAttraction,
   updateAttraction,
 } from "../requests/AdminRequests";
+import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import { S3_BUCKET_PUBLIC_URL, S3_BUCKET_FOLDER } from "../requests/S3Bucket";
 import ReactPlayer from "react-player";
 import { Button, Input, Space, message, Table, Modal, Form } from "antd";
@@ -15,8 +16,19 @@ import AudioFileUploader from "../components/admin/AudioFileUploader";
 import MapPicker from "../components/admin/MapPicker";
 import "../styles/HomeAdmin.css";
 import { FaRegSadTear } from "react-icons/fa";
+import "../styles/Landing.css";
 const HomeAdmin = () => {
-  const [messageApi, contextHolder] = message.useMessage();
+
+    // page/component state
+    const [messageApi, contextHolder] = message.useMessage();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [form] = Form.useForm();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [selectedSetting, setSelectedSetting] = useState("attractions");
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+
   // state definition for attraction creation
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -124,6 +136,14 @@ const HomeAdmin = () => {
     return res.status;
   };
 
+  //logout hook
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    //setUserRole(null);
+    setDropdownOpen(false);
+    navigate('/');
+};
+
   const columns = [
     {
       title: "ID",
@@ -181,7 +201,7 @@ const HomeAdmin = () => {
       dataIndex: "audioFilePath",
       render: (text, record) =>
         record.isAddButton ? null : (
-            <div className = "admin-audio-player">
+          <div className="admin-audio-player">
             <ReactPlayer
               key={text}
               url={S3_BUCKET_PUBLIC_URL + text}
@@ -234,12 +254,6 @@ const HomeAdmin = () => {
     },
   ];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [form] = Form.useForm();
-
-  const [selectedSetting, setSelectedSetting] = useState("attractions");
-  const [data, setData] = useState([]);
   useEffect(() => {
     const fetchAttractions = async () => {
       let attractions = await getAllAttractions();
@@ -284,6 +298,32 @@ const HomeAdmin = () => {
   return (
     <>
       {contextHolder}
+      <header className="landing-header">
+        <div style={{ position: "relative" }}>
+          <FaUserCircle
+            className="landing-avatar"
+            style={{ fontSize: "40px", color: "#2e6a5a", cursor: "pointer" }}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+          {dropdownOpen && (
+            <div className="landing-dropdown">
+              <>
+                <div
+                  className="dropdown-item"
+                  onClick={() => navigate("/")}
+                >
+                  Home
+                </div>
+              </>
+
+              <div className="dropdown-item" onClick={handleLogout}>
+                <FaSignOutAlt style={{ marginRight: "8px" }} />
+                Logout
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
       <div className="admin-sidebar-container">
         <div className="admin-sidebar">
           <h2>Admin Menu</h2>
