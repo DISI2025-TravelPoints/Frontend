@@ -29,7 +29,7 @@ export async function createAttraction(attraction, file) {
     formData.append('file', file);
     const response = await axios.post(`http://localhost${ATTRACTIONS_API}`, formData);
     console.log('Attraction created successfully:', response.data);
-    return response.status;
+    return response;
 }
 
 export async function deleteAttraction(attractionId) {

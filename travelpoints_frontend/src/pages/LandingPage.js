@@ -52,6 +52,13 @@ const Landing = () => {
                                         <div className="dropdown-item" onClick={() => navigate('/account')}>Account</div>
                                     </>
                                 )}
+
+                                {userRole === 'Admin' && (
+                                    <>
+                                        <div className="dropdown-item" onClick={() => navigate('/home-admin')}>Dashboard</div>
+                                        <div className="dropdown-item" onClick={() => navigate('/account')}>Account</div>
+                                    </>
+                                )}
                                 <div className="dropdown-item" onClick={handleLogout}>
                                     <FaSignOutAlt style={{ marginRight: '8px' }} />
                                     Logout

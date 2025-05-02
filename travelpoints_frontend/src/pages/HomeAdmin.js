@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getAllAttractions, createAttraction, deleteAttraction, updateAttraction } from '../requests/AdminRequests';
-import { S3_BUCKET_PUBLIC_URL } from '../requests/S3Bucket';
+import { S3_BUCKET_PUBLIC_URL, S3_BUCKET_FOLDER } from '../requests/S3Bucket';
 import ReactPlayer from 'react-player';
-import {Button, Input, Space, Table, Modal, Form} from 'antd';
+import {Button, Input, Space, message, Table, Modal, Form} from 'antd';
 import AudioFileUploader from '../components/admin/AudioFileUploader';
 import MapPicker from '../components/admin/MapPicker';
 import '../styles/HomeAdmin.css'; 
+import { FaRegSadTear } from 'react-icons/fa';
 const HomeAdmin = () => {
-    
+    const [messageApi, contextHolder] = message.useMessage();
     // state definition for attraction creation
     const [name, setName] = useState(null);
     const [description, setDescription] = useState(null);
@@ -29,6 +30,14 @@ const HomeAdmin = () => {
         console.log('Selected location:', location);
     };
 
+    const alertMessage = (type, msg) => {
+        messageApi.open({
+          type: type,
+          duration: 1,
+          content: msg,
+        });
+      };
+
     const handleFileUpload = (file) => {
         setAudioFile(file);
         form.setFieldsValue({
@@ -37,12 +46,12 @@ const HomeAdmin = () => {
         //console.log('Selected file:', file);
     };
 
-    const handleAttractionDeleteion = async (id) =>{
+    const handleAttractionDeletion = async (id) =>{
         const res = await deleteAttraction(id);
         if (res === 200) {
-            alert("Attraction deleted successfully");
+            alertMessage("success","Attraction deleted successfully");
         } else {
-            alert("Error deleting attraction");
+            alertMessage("error","Error deleting attraction");
         }
     }
 
@@ -57,7 +66,7 @@ const HomeAdmin = () => {
         const updatedFile = audioFile ? audioFile : null;
         const res = await updateAttraction(id, updatedAttraction, updatedFile);
         if (res === 200) {
-            // update the table accordingly 
+            // update the table accordingly
             setData(prev => prev.map(item => {
                 if (item.id === id) {
                     return {
@@ -67,15 +76,48 @@ const HomeAdmin = () => {
                         entryFee: entryFee,
                         latitude: latitude,
                         longitude: longitude,
-                        audioFilePath: updatedFile ? updatedFile.name : item.audioFilePath, // update the audio file path if a new file is uploaded
+                        audioFilePath: updatedFile ? S3_BUCKET_FOLDER + updatedFile.name : item.audioFilePath, // update the audio file path if a new file is uploaded
+                        lastUpdate: new Date().toLocaleString(), // update the last update time
                     };
                 }
                 return item;
             }
             ));
+            alertMessage("success","Attraction updated successfully");
+
         } else {
-            alert("Error updating attraction");
+            alertMessage("error","Failed to update attraction");
+
         }
+    }
+
+    //FIXME : sometimes mongo returns 500 error
+    const handleAttractionCreation = async (attraction, audioFile) => {
+        let res = await createAttraction(attraction, audioFile);
+        if (res.status === 201) {
+            setData(prev => {
+                const newItem = {
+                    key: res.data,
+                    id: res.data,
+                    name: name,
+                    description: description,
+                    entryFee: entryFee,
+                    audioFilePath: S3_BUCKET_FOLDER + audioFile.name,
+                    latitude: latitude,
+                    longitude: longitude,
+                    lastUpdate: new Date().toLocaleString(),
+                };
+            
+                const dataWithoutButton = prev.slice(0, -1);
+                const addButton = prev[prev.length - 1];
+                
+                return [...dataWithoutButton, newItem, addButton];
+            });
+            alertMessage("success","Attraction created successfully");
+        } else {
+            alertMessage("error","Failed to create attraction");
+        }
+        return res.status;
     }
     
     const columns = [
@@ -130,6 +172,7 @@ const HomeAdmin = () => {
             dataIndex: 'audioFilePath',
             render: (text, record) => record.isAddButton ? null : (
                 <ReactPlayer
+                key={text}
                 url={S3_BUCKET_PUBLIC_URL + text} 
                 controls                                                                                                                     
                 width="100%"
@@ -161,7 +204,7 @@ const HomeAdmin = () => {
                 }}>Edit</Button>
                 <Button type="primary" danger onClick={(e) =>{
                     setData(prev => prev.filter(item => item.id !== record.id));
-                    handleAttractionDeleteion(record.id);
+                    handleAttractionDeletion(record.id);
                 } }>Delete</Button>
                 </Space>
             ),
@@ -219,6 +262,7 @@ const HomeAdmin = () => {
 
     return (
         <>
+        {contextHolder}
         <div className="admin-sidebar-container">
         <div className="admin-sidebar">
         <h2>Admin Menu</h2>
@@ -262,14 +306,10 @@ const HomeAdmin = () => {
                     latitude: latitude,
                     longitude: longitude,
                 }
-                let res = createAttraction(attraction, audioFile);
-                if (res === 201) {
-                    //alert("Attraction created successfully");
-                    form.resetFields();
-                    setIsModalOpen(false);
-                } else {
-                    alert("Error creating attraction");
-                }
+                handleAttractionCreation(attraction, audioFile);
+                form.resetFields();
+                setIsModalOpen(false);
+                
             })
             .catch(info => {
                 console.log('Validate Failed:', info);
