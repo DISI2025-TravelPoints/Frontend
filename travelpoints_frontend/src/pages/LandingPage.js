@@ -78,7 +78,7 @@ const Landing = () => {
                     </p>
                 </div>
                 <div className="landing-map">
-                <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
+                    <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
                 </div>
             </div>
         </div>
