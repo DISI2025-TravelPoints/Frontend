@@ -1,0 +1,1 @@
+export const S3_BUCKET_PUBLIC_URL= "https://travelpoints-bucket.s3.eu-central-1.amazonaws.com/";

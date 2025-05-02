@@ -8,6 +8,7 @@ import Unauthorized from './pages/Unauthorized';
 import RequireAuth from './utils/RequireAuth';
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
+import HomeAdmin from "./pages/HomeAdmin";
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
                 <Route path="/home" element={<LandingPage />} />
                 <Route path="/reset-pass" element={<ResetPassword />}/>
                 <Route path="/forgot-pass" element={<ForgotPassword />}/>
+
+                <Route path="/home-admin" element={<HomeAdmin />} />
 
                 {/*<Route path="/wishlist" element={*/}
                 {/*    <RequireAuth allowedRoles={['Tourist']}>*/}
