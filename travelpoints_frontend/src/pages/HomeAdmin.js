@@ -57,7 +57,22 @@ const HomeAdmin = () => {
         const updatedFile = audioFile ? audioFile : null;
         const res = await updateAttraction(id, updatedAttraction, updatedFile);
         if (res === 200) {
-            alert("Attraction updated successfully");
+            // update the table accordingly 
+            setData(prev => prev.map(item => {
+                if (item.id === id) {
+                    return {
+                        ...item,
+                        name: name,
+                        description: description,
+                        entryFee: entryFee,
+                        latitude: latitude,
+                        longitude: longitude,
+                        audioFilePath: updatedFile ? updatedFile.name : item.audioFilePath, // update the audio file path if a new file is uploaded
+                    };
+                }
+                return item;
+            }
+            ));
         } else {
             alert("Error updating attraction");
         }
