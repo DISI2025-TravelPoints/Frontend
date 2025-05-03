@@ -65,8 +65,8 @@
 
 .landing-body {
     display: flex;
-    justify-content: center;
-    padding: 80px 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .landing-content {
@@ -87,4 +87,15 @@
     line-height: 1.6;
     padding: 0 10px;
 }
+
+
+.landing-map {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .landing-map > * {
+    width: 100%;
+    height: 600px; 
+  }
 

@@ -1,0 +1,73 @@
+
+
+.admin-sidebar-container{
+    width: 15%;
+    height: 100vh;
+    background-color: #f8f9fa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-button{
+    background-color: #43b97f;
+    color: white;
+    border-color: #ffffff;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    width:100%;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 2px;
+}
+
+.admin-button:hover{
+    background-color: #36a76f;
+    cursor: pointer;
+
+}
+
+.admin-audio-player{
+    width: "100%";
+    max-width: 400px;
+    margin: "0 auto";
+}
+
+.landing-header-with-breadcrumbs {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #ccc;
+    background-color: white;
+    position: relative;
+}
+
+.admin-breadcrumb {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 0; 
+}
+ 
+.breadcrumb-root {
+    font-weight: 500;
+    color: #555;
+}
+ 
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: #999;
+}
+ 
+.breadcrumb-current {
+    font-weight: bold;
+    color: #43b97f;
+}
+  
