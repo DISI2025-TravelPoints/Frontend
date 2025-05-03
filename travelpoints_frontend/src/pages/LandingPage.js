@@ -4,6 +4,7 @@ import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import "../styles/Landing.css";
 import { getRoleFromToken } from "../utils/Auth";
 import GeoLocation from "../utils/GeoLocation";
+import SearchBar from "../components/common/SearchBar";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -122,6 +123,7 @@ const Landing = () => {
               </>
             )}
           </p>
+          <SearchBar/>
         </div>
         <div className="landing-map">
           <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
