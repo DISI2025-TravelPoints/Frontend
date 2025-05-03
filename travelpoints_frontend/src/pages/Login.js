@@ -4,6 +4,7 @@ import '../styles/Auth.css';
 import bgImage from '../assets/rectangle-11.png';
 import userApi from '../api';
 import { validateEmailRequired, validatePassword } from '../utils/Validators';
+import { getRoleFromToken } from '../utils/Auth';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -26,13 +27,17 @@ const Login = () => {
             const response = await userApi.post('/api/user/login', { email, password });
             const token = response.data;
             localStorage.setItem('token', token);
-
+            const role = getRoleFromToken();
             if (!token || token.trim() === '') {
                 navigate('/unauthorized');
                 return;
             }
-            // redirect catre pagina comuna
-            navigate('/home');
+           
+            if (role === 'Admin') {
+                navigate('/home-admin');
+            }else{
+                navigate('/home');  // redirect catre pagina comuna
+            }
         } catch (error) {
             console.error("Eroare la login:", error);
 

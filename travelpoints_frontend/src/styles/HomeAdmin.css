@@ -11,11 +11,6 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.admin-content{
-    margin-left:15%;
-
-}
-
 .admin-button{
     background-color: #43b97f;
     color: white;
@@ -45,3 +40,34 @@
     margin: "0 auto";
 }
 
+.landing-header-with-breadcrumbs {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #ccc;
+    background-color: white;
+    position: relative;
+}
+
+.admin-breadcrumb {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 0; 
+}
+ 
+.breadcrumb-root {
+    font-weight: 500;
+    color: #555;
+}
+ 
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: #999;
+}
+ 
+.breadcrumb-current {
+    font-weight: bold;
+    color: #43b97f;
+}
+  

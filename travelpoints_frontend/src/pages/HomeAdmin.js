@@ -8,7 +8,7 @@ import {
   deleteAttraction,
   updateAttraction,
 } from "../requests/AdminRequests";
-import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { S3_BUCKET_PUBLIC_URL, S3_BUCKET_FOLDER } from "../requests/S3Bucket";
 import ReactPlayer from "react-player";
 import { Button, Input, Space, message, Table, Modal, Form } from "antd";
@@ -18,16 +18,15 @@ import "../styles/HomeAdmin.css";
 import { FaRegSadTear } from "react-icons/fa";
 import "../styles/Landing.css";
 const HomeAdmin = () => {
-
-    // page/component state
-    const [messageApi, contextHolder] = message.useMessage();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [form] = Form.useForm();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedSetting, setSelectedSetting] = useState("attractions");
-    const [data, setData] = useState([]);
-    const navigate = useNavigate();
+  // page/component state
+  const [messageApi, contextHolder] = message.useMessage();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [form] = Form.useForm();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedSetting, setSelectedSetting] = useState("attractions");
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   // state definition for attraction creation
   const [name, setName] = useState(null);
@@ -138,11 +137,11 @@ const HomeAdmin = () => {
 
   //logout hook
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     //setUserRole(null);
     setDropdownOpen(false);
-    navigate('/');
-};
+    navigate("/");
+  };
 
   const columns = [
     {
@@ -295,10 +294,24 @@ const HomeAdmin = () => {
 
   //TODO return the created instance to update the table for a faster experience
 
+  const settingNames = {
+    users: "Manage Users",
+    attractions: "Manage Attractions",
+    reviews: "Manage Reviews",
+  };
+
   return (
     <>
       {contextHolder}
-      <header className="landing-header">
+      <header className="landing-header-with-breadcrumbs">
+        <div className="admin-breadcrumb">
+          <span className="breadcrumb-root">Dashboard</span>
+          <span className="breadcrumb-separator"> &gt; </span>
+          <span className="breadcrumb-current">
+            {settingNames[selectedSetting]}
+          </span>
+        </div>
+
         <div style={{ position: "relative" }}>
           <FaUserCircle
             className="landing-avatar"
@@ -308,11 +321,26 @@ const HomeAdmin = () => {
           {dropdownOpen && (
             <div className="landing-dropdown">
               <>
+                <div className="dropdown-item" onClick={() => navigate("/")}>
+                  Home
+                </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => navigate("/")}
+                  onClick={() => setSelectedSetting("attractions")}
                 >
-                  Home
+                  Manage Attraction
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => setSelectedSetting("reviews")}
+                >
+                  Manage Reviews
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => setSelectedSetting("users")}
+                >
+                  Manage Users
                 </div>
               </>
 
@@ -324,35 +352,6 @@ const HomeAdmin = () => {
           )}
         </div>
       </header>
-      <div className="admin-sidebar-container">
-        <div className="admin-sidebar">
-          <h2>Admin Menu</h2>
-          <ul>
-            <hr></hr>
-            <button
-              className="admin-button"
-              onClick={() => setSelectedSetting("users")}
-            >
-              Manage Users
-            </button>
-            <hr></hr>
-            <button
-              className="admin-button"
-              onClick={() => setSelectedSetting("attractions")}
-            >
-              Manage Attractions
-            </button>
-            <hr></hr>
-            <button
-              className="admin-button"
-              onClick={() => setSelectedSetting("reviews")}
-            >
-              Manage Reviews
-            </button>
-            <hr></hr>
-          </ul>
-        </div>
-      </div>
       <div className="admin-content">
         <Table dataSource={data} columns={columns} />
         <Modal
