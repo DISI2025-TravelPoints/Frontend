@@ -1,0 +1,74 @@
+.attraction-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    /*height: auto;*/
+    min-height: 320px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.attraction-card:hover {
+    transform: translateY(-5px);
+}
+
+.attraction-image {
+    width: 100%;
+    /*height: 227px;*/
+    height: 260px;
+    object-fit: cover;
+}
+
+.attraction-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.attraction-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #3d3e48;
+    margin-bottom: 10px;
+}
+
+.attraction-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attraction-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #295943;
+}
+
+.attraction-days {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #3d3e48;
+}
+
+.trip-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.audio-button, .favorite-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
