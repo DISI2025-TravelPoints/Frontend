@@ -4,6 +4,7 @@
   align-items: center;
   width: 100%;
   padding: 20px 0;
+  z-index: 1001;
 }
 
 .search-box {

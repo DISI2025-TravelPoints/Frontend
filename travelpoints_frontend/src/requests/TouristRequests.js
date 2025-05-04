@@ -14,7 +14,8 @@ export async function searchAttractionsByText(searchTerm) {
             },
             withCredentials: true
         });
-        console.log("Response from searchAttractions:", response.data);
+        if (response.status === 404)
+            return [];
         return response.data;
     } catch (error) {
         console.error('Error searching attractions:', error);
@@ -34,7 +35,8 @@ export async function searchAttractionsByCoords(lat, long) {
             },
             withCredentials: true
         });
-        console.log("Response from searchAttractions:", response.data);
+        if (response.status === 404)
+            return [];
         return response.data;
     } catch (error) {
         console.error('Error searching attractions:', error);
