@@ -27,8 +27,8 @@ export async function searchAttractionsByCoords(lat, long) {
     try {
         const response = await axios.get(`${API_LOCAL_URL}${ATTRACTIONS_API}/search/location`, {
             params: {
-                'lat': lat,
-                'long': long
+                'latitude': lat,
+                'longitude': long
             },
             headers: {
                 'Content-Type': 'application/json',
