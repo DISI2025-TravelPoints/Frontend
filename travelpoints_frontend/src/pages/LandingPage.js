@@ -101,6 +101,15 @@ const Landing = () => {
                 </p>
             </div>
 
+            <div className="section-header">
+                <h4 className="subtitle">Attractions nearby</h4>
+                <h2 className="title">
+                   {/* Start your journey from where you are — the world is waiting*/}
+                    Start your journey from where you are
+                </h2>
+            </div>
+
+
             <div className="landing-map">
                 <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
             </div>

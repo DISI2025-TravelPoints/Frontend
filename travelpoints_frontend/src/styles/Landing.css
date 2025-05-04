@@ -133,10 +133,28 @@
 
 .landing-map {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 .landing-map > * {
     width: 100%;
     height: 600px;
 }
+
+
+/*for the before text */
+.section-header {
+    padding: 60px 20px;
+    text-align: center;
+    background: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-header .subtitle {
+    margin-bottom: 8px;
+}
+
+.section-header .title {
+    margin: 0;
+}
+
