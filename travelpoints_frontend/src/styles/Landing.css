@@ -63,7 +63,7 @@
     cursor: pointer;
     font-weight: 600;
     margin-right: 20px;
-    color:white;
+    color:#a4dcce;
 }
 
 .landing-signup {
@@ -76,6 +76,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 
 .landing-signup:hover {
     background-color: #245243;
