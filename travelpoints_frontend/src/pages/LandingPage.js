@@ -1,136 +1,126 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
-import "../styles/Landing.css";
-import { getRoleFromToken } from "../utils/Auth";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import '../styles/Landing.css';
+import { getRoleFromToken } from '../utils/Auth';
+import backgroundImage from '../assets/background0.png';
+import Destinations from './Destinations';
+import useAuthSession from '../utils/AuthSession';
 import GeoLocation from "../utils/GeoLocation";
 import SearchBar from "../components/common/SearchBar";
 
 const Landing = () => {
-  const navigate = useNavigate();
-  const [userRole, setUserRole] = useState(null);
-  const [userGeohash, setUserGeohash] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+    const navigate = useNavigate();
+    const [userRole, setUserRole] = useState(null);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [userGeohash, setUserGeohash] = useState(null);
 
-  useEffect(() => {
-    setUserRole(getRoleFromToken());
-  }, []);
+    useEffect(() => {
+        setUserRole(getRoleFromToken());
+    }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUserRole(null);
-    setDropdownOpen(false);
-    navigate("/");
-  };
+    useEffect(() => {
+             const role = getRoleFromToken();
+              setUserRole(role);
+             if (role === 'Admin') {
+                    navigate('/home-admin');
+                 } else if (role === 'Tourist') {
+                    //sau putem duce turistii la profil
+                       navigate('/');
+                 }
+            }, [navigate]);
 
-  return (
-    <div className="landing-wrapper">
-      <header className="landing-header">
-        {!userRole ? (
-          <>
-            <div className="landing-login" onClick={() => navigate("/login")}>
-              <FaUser style={{ marginRight: "8px" }} />
-              Login
+    const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
+
+    return (
+        <div className="landing-page"> {/* UN SINGUR WRAPPER */}
+            <header className="landing-header">
+                <div className="landing-logo" onClick={() => navigate('/')}>
+                    travelpoints
+                </div>
+                {!userRole ? (
+                    <div className="landing-actions">
+                        <div className="landing-login" onClick={() => navigate('/login')}>
+                            <FaUser style={{marginRight: '8px'}}/>
+                            Login
+                        </div>
+                        <button className="landing-signup" onClick={() => navigate('/register')}>
+                            Sign up free
+                        </button>
+                    </div>
+                ) : (
+                    <div style={{position: 'relative'}}>
+                        <FaUserCircle
+                            className="landing-avatar"
+                            style={{fontSize: '40px', cursor: 'pointer'}}
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                        />
+                        {dropdownOpen && (
+                            <div className="landing-dropdown">
+                                {userRole === 'Tourist' && (
+                                    <>
+                                        <div className="dropdown-item" onClick={() => navigate('/profile')}>
+                                            Profile
+                                        </div>
+                                        <div className="dropdown-item" onClick={() => navigate('/wishlist')}>
+                                            Wishlist
+                                        </div>
+                                        <div className="dropdown-item" onClick={() => navigate('/account')}>
+                                            Account
+                                        </div>
+                                    </>
+                                )}
+                                <div className="dropdown-item" onClick={handleLogout}>
+                                    <FaSignOutAlt style={{marginRight: '8px'}}/>
+                                    Logout
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </header>
+
+            {/* HERO SECTION */}
+            <div
+                className="landing-hero"
+                style={{backgroundImage: `url(${backgroundImage})`}}
+            >
+                <h1 className="landing-title">Explore the world with a smile</h1>
+                <p className="landing-text">
+                    {userRole === 'Admin' && (
+                        <>Welcome back, Admin! You can now manage attractions and view insights.</>
+                    )}
+                    {userRole === 'Tourist' && (
+                        <>Welcome, dear tourist! Start exploring top destinations and add favorites to your list.</>
+                    )}
+                    {!userRole && (
+                        <>
+                            Discover the most spectacular tourist attractions around the world.<br/>
+                            Search, save, and explore.
+                        </>
+                    )}
+                </p>
             </div>
 
-            <button
-              className="landing-signup"
-              onClick={() => navigate("/register")}
-            >
-              Sign up free
-            </button>
-          </>
-        ) : (
-          <div style={{ position: "relative" }}>
-            <FaUserCircle
-              className="landing-avatar"
-              style={{ fontSize: "40px", color: "#2e6a5a", cursor: "pointer" }}
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-            />
-            {dropdownOpen && (
-              <div className="landing-dropdown">
-                {userRole === "Tourist" && (
-                  <>
-                    <div
-                      className="dropdown-item"
-                      onClick={() => navigate("/profile")}
-                    >
-                      Profile
-                    </div>
-                    <div
-                      className="dropdown-item"
-                      onClick={() => navigate("/wishlist")}
-                    >
-                      Wishlist
-                    </div>
-                    <div
-                      className="dropdown-item"
-                      onClick={() => navigate("/account")}
-                    >
-                      Account
-                    </div>
-                  </>
-                )}
+            <div className="section-header">
+                <h4 className="subtitle">Attractions nearby</h4>
+                <h2 className="title">
+                   {/* Start your journey from where you are — the world is waiting*/}
+                    Start your journey from where you are
+                </h2>
+            </div>
 
-                {userRole === "Admin" && (
-                  <>
-                    <div
-                      className="dropdown-item"
-                      onClick={() => navigate("/home-admin")}
-                    >
-                      Dashboard
-                    </div>
-                    <div
-                      className="dropdown-item"
-                      onClick={() => navigate("/account")}
-                    >
-                      Account
-                    </div>
-                  </>
-                )}
-                <div className="dropdown-item" onClick={handleLogout}>
-                  <FaSignOutAlt style={{ marginRight: "8px" }} />
-                  Logout
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </header>
+            <SearchBar/>        
+            <div className="landing-map">
+                <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
+            </div>
 
-      <div className="landing-body">
-        <div className="landing-content">
-          <h1 className="landing-title">TravelPoints</h1>
-          <p className="landing-text">
-            {userRole === "Admin" && (
-              <>
-                Welcome back, Admin! You can now manage attractions and view
-                insights.
-              </>
-            )}
-            {userRole === "Tourist" && (
-              <>
-                Welcome, dear tourist! Start exploring top destinations and add
-                favorites to your list.
-              </>
-            )}
-            {!userRole && (
-              <>
-                Discover the most spectacular tourist attractions in Romania and
-                around the world.
-                <br />
-                Search, save, and explore.
-              </>
-            )}
-          </p>
-          <SearchBar/>
+            {/* DESTINATIONS SECTION */}
+            <div className="destinations-section" style={{background: '#f8f8f8', padding: '60px 20px'}}>
+                <Destinations/>
+            </div>
         </div>
-        <div className="landing-map">
-          <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Landing;

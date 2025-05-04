@@ -24,7 +24,14 @@ function App() {
                 <Route path="/reset-pass" element={<ResetPassword />}/>
                 <Route path="/forgot-pass" element={<ForgotPassword />}/>
 
-                <Route path="/home-admin" element={<HomeAdmin />} />
+                <Route
+                    path="/home-admin"
+                    element={
+                        <RequireAuth allowedRoles={['Admin']}>
+                        <HomeAdmin />
+                        </RequireAuth>
+                    }
+                />
 
                 {/*<Route path="/wishlist" element={*/}
                 {/*    <RequireAuth allowedRoles={['Tourist']}>*/}
