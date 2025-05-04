@@ -7,6 +7,7 @@ import backgroundImage from '../assets/background0.png';
 import Destinations from './Destinations';
 import useAuthSession from '../utils/AuthSession';
 import GeoLocation from "../utils/GeoLocation";
+import SearchBar from "../components/common/SearchBar";
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -109,7 +110,7 @@ const Landing = () => {
                 </h2>
             </div>
 
-
+            <SearchBar/>        
             <div className="landing-map">
                 <GeoLocation setUserGeohash={setUserGeohash}></GeoLocation>
             </div>
