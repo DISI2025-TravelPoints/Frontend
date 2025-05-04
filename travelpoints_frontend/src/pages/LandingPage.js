@@ -8,7 +8,6 @@ import Destinations from './Destinations';
 import useAuthSession from '../utils/AuthSession';
 import GeoLocation from "../utils/GeoLocation";
 
-
 const Landing = () => {
     const navigate = useNavigate();
     const [userRole, setUserRole] = useState(null);
@@ -18,6 +17,17 @@ const Landing = () => {
     useEffect(() => {
         setUserRole(getRoleFromToken());
     }, []);
+
+    useEffect(() => {
+             const role = getRoleFromToken();
+              setUserRole(role);
+             if (role === 'Admin') {
+                    navigate('/home-admin');
+                 } else if (role === 'Tourist') {
+                    //sau putem duce turistii la profil
+                       navigate('/');
+                 }
+            }, [navigate]);
 
     const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
 
@@ -72,20 +82,7 @@ const Landing = () => {
             {/* HERO SECTION */}
             <div
                 className="landing-hero"
-                style={{
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    minHeight: '100vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                    textAlign: 'center',
-                    color: 'white',
-                    padding: '0 20px',
-                }}
+                style={{backgroundImage: `url(${backgroundImage})`}}
             >
                 <h1 className="landing-title">Explore the world with a smile</h1>
                 <p className="landing-text">

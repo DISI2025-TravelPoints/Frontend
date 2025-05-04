@@ -17,7 +17,9 @@ import MapPicker from "../components/admin/MapPicker";
 import "../styles/HomeAdmin.css";
 import { FaRegSadTear } from "react-icons/fa";
 import "../styles/Landing.css";
+import useAuthSession from '../utils/AuthSession';
 const HomeAdmin = () => {
+
   // page/component state
   const [messageApi, contextHolder] = message.useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +38,7 @@ const HomeAdmin = () => {
   const [longitude, setLongitude] = useState(0);
   const [audioFile, setAudioFile] = useState(null);
   const [selectedAttraction, setSelectedAttraction] = useState(null);
+
   // TODO : break attraction creation into a separate component
   const handleLocationSelected = (location) => {
     setLatitude(parseFloat(location[0]));
@@ -135,13 +138,7 @@ const HomeAdmin = () => {
     return res.status;
   };
 
-  //logout hook
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    //setUserRole(null);
-    setDropdownOpen(false);
-    navigate("/");
-  };
+  const handleLogout = useAuthSession(null, setDropdownOpen);
 
   const columns = [
     {
