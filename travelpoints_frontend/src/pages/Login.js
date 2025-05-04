@@ -59,6 +59,9 @@ const Login = () => {
 
     return (
         <div className="auth-wrapper" style={{ backgroundImage: `url(${bgImage})` }}>
+            <div className="landing-logo" onClick={() => navigate('/')}>
+                    travelpoints
+            </div>
             <div className="auth-content">
                 <h1 className="auth-title">Login</h1>
 
