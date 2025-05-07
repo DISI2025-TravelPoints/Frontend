@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
+import '../styles/Landing.css';
 import bgImage from '../assets/rectangle-11.png';
 import userApi from '../api';
 import { validateName, validateEmail, validatePassword } from '../utils/Validators';
@@ -51,7 +52,12 @@ const Register = () => {
     };
 
     return (
-        <div className="auth-wrapper" style={{ backgroundImage: `url(${bgImage})` }}>
+        <div className="auth-wrapper" style={{backgroundImage: `url(${bgImage})`}}>
+            <header className="landing-header">
+                <div className="landing-logo" onClick={() => navigate('/')}>
+                    travelpoints
+                </div>
+            </header>
             <div className="auth-content">
                 <h1 className="auth-title">Create Account</h1>
 
