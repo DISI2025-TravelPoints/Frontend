@@ -65,3 +65,19 @@ export async function updateAttraction(attractionId, updatedAttraction, file) {
         return error.response?.status;
     }
 }
+
+export async function getAttractionById(id) {
+    try {
+        const res = await axios.get(`http://localhost${ATTRACTIONS_API}/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true
+        });
+        return res.data;
+    } catch (error) {
+        console.error('Error fetching attraction:', error);
+        throw error;
+    }
+}
+

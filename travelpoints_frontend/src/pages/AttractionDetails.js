@@ -87,6 +87,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import {getAttractionById} from "../requests/AdminRequests";
 
 // Swiper core + modules
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -107,26 +108,47 @@ const AttractionDetails = () => {
     const {id} = useParams();
     const [attraction, setAttraction] = useState(null);
 
-    useEffect(() => {
-        // mock / fetch real
-        setAttraction({
-            id,
-            name: 'Sample Attraction',
-            description: 'This is a sample description of the attraction.',
-            images: [
-                `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/cover.jpeg`,
-                `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/1.jpeg`,
-                `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/2.jpeg`
-            ],
-            audioUrl: `https://travelpoints-bucket.s3.amazonaws.com/audio/${id}.wav`
+    // useEffect(() => {
+    //     // mock / fetch real
+    //     setAttraction({
+    //         id,
+    //         name: 'Sample Attraction',
+    //         description: 'This is a sample description of the attraction.',
+    //         images: [
+    //             `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/cover.jpeg`,
+    //             `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/1.jpeg`,
+    //             `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/2.jpeg`
+    //         ],
+    //         audioUrl: `https://travelpoints-bucket.s3.amazonaws.com/audio/${id}.wav`
+    //
+    //         // images: [
+    //         //     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+    //         //     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+    //         //     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
+    //         // ]
+    //     });
+    // }, [id]);
 
-            // images: [
-            //     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-            //     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-            //     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
-            // ]
-        });
+    useEffect(() => {
+        const fetchAttraction = async () => {
+            try {
+                const data = await getAttractionById(id);
+                setAttraction({
+                    ...data,
+                    images: [
+                        `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/cover.jpeg`,
+                        `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/1.jpeg`,
+                        `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${id}/2.jpeg`
+                    ],
+                    audioUrl: `https://travelpoints-bucket.s3.amazonaws.com/${data.audioFilePath}`
+                });
+            } catch (err) {
+                console.error("Failed to load attraction:", err);
+            }
+        };
+        fetchAttraction();
     }, [id]);
+
 
     if (!attraction) return <p>Loading...</p>;
 
@@ -138,58 +160,64 @@ const AttractionDetails = () => {
             {/*</nav>*/}
 
 
-                <div className="attraction-details-container">
-                    <h1 className="attraction-name">{attraction.name}</h1>
+            <div className="attraction-details-container">
+                <h1 className="attraction-name">{attraction.name}</h1>
 
-                    {/* Swiper Coverflow */}
-                    <Swiper
-                        modules={[EffectCoverflow, Pagination]}
-                        effect="coverflow"
-                        grabCursor  /*={true} */
-                        centeredSlides  /*={true} */
-                        slidesPerView="auto"
-                        pagination={{clickable: true}}
-                        onSwiper={(swiper) => (window.swiperInstance = swiper)}
-                        // /* slidesPerView={3}*/
-                        //  loop={true}
-                        // loopedSlides={attraction.images.length}
-                        coverflowEffect={{
-                            rotate: 0,      // unghi de rotație
-                            stretch: 100,   // distanța de suprapunere
-                            depth: 200,     // adâncimea
-                            modifier: 1,    // intensitate
-                            slideShadows: false,
-                        }}
-                        //navigation
+                {/* Swiper Coverflow */}
+                <Swiper
+                    modules={[EffectCoverflow, Pagination]}
+                    effect="coverflow"
+                    grabCursor  /*={true} */
+                    centeredSlides  /*={true} */
+                    slidesPerView="auto"
+                    pagination={{clickable: true}}
+                    onSwiper={(swiper) => (window.swiperInstance = swiper)}
+                    // /* slidesPerView={3}*/
+                    //  loop={true}
+                    // loopedSlides={attraction.images.length}
+                    coverflowEffect={{
+                        rotate: 0,      // unghi de rotație
+                        stretch: 100,   // distanța de suprapunere
+                        depth: 200,     // adâncimea
+                        modifier: 1,    // intensitate
+                        slideShadows: false,
+                    }}
+                    //navigation
 
-                        className="coverflow-swiper"
-                    >
-                        {attraction.images.map((url, idx) => (
-                            <SwiperSlide key={idx} style={{width: '400px', height: '280px',}}>
-                                <img src={url} alt={`Slide ${idx}`} className="swiper-image"/>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-
-
-                    {/*<div className="carousel-controls">*/}
-                    {/*    <button className="arrow" onClick={() => window.swiperInstance.slidePrev()}>&larr;</button>*/}
-                    {/*    <div className="swiper-pagination"/>*/}
-                    {/*    <button className="arrow" onClick={() => window.swiperInstance.slideNext()}>&rarr;</button>*/}
-                    {/*</div>*/}
+                    className="coverflow-swiper"
+                >
+                    {attraction.images.map((url, idx) => (
+                        <SwiperSlide key={idx} style={{width: '400px', height: '280px',}}>
+                            <img src={url} alt={`Slide ${idx}`} className="swiper-image"/>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
 
 
-                    <div className="audio-section">
-                        <audio controls>
-                            <source src={attraction.audioUrl} type="audio/wav"/>
-                            Your browser does not support audio.
-                        </audio>
-                    </div>
+                {/*<div className="carousel-controls">*/}
+                {/*    <button className="arrow" onClick={() => window.swiperInstance.slidePrev()}>&larr;</button>*/}
+                {/*    <div className="swiper-pagination"/>*/}
+                {/*    <button className="arrow" onClick={() => window.swiperInstance.slideNext()}>&rarr;</button>*/}
+                {/*</div>*/}
 
-                    <p className="attraction-description">{attraction.description}</p>
+
+                <div className="audio-section">
+                    <audio controls>
+                        <source src={attraction.audioUrl} type="audio/wav"/>
+                        Your browser does not support audio.
+                    </audio>
                 </div>
+
+                {/*<p className="description">{attraction.description}</p>*/}
+                <p
+                    className="description"
+                    style={{whiteSpace: 'pre-line'}}
+                    dangerouslySetInnerHTML={{__html: attraction.description}}
+                ></p>
+
+            </div>
         </div>
-);
+    );
 };
 
 export default AttractionDetails;
