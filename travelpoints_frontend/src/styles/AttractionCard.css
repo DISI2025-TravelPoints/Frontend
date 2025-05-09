@@ -62,7 +62,7 @@
     margin-right: 5px;
 }
 
-.audio-button, .favorite-button {
+.audio-button {
     background: none;
     border: none;
     cursor: pointer;
@@ -71,4 +71,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.attraction-actions .audio-button svg {
+    width: 2.5rem;   /* adjust to taste */
+    height: 2.5rem;  /* keep aspect‐ratio square */
+}
+
+.attraction-card-link,
+.attraction-card-link * {
+    text-decoration: none !important;
 }

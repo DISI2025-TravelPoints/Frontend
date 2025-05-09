@@ -1,219 +1,22 @@
-/*.details-page {*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*}*/
-/*.attraction-details-container {*/
-/*    max-width: 800px;*/
-/*    margin: 80px auto 2rem;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.attraction-name {*/
-/*    margin-bottom: 1rem;*/
-/*    font-size: 2rem;*/
-/*}*/
-
-/*!* Swiper carousel *!*/
-/*.coverflow-swiper {*/
-/*    padding: 40px 0;*/
-/*    overflow: visible;*/
-/*    position: relative;*/
-/*}*/
-
-/*!* Slide img styling *!*/
-/*.swiper-slide img {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    object-fit: cover;*/
-/*    border-radius: 20px;*/
-/*    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);*/
-/*    transition: transform 0.3s ease;*/
-/*}*/
-
-/*!* Custom arrows (left/right) *!*/
-/*.swiper-button-prev,*/
-/*.swiper-button-next {*/
-/*    color: #444; !* arrow color *!*/
-/*    font-size: 1.5rem;*/
-/*    background: none;*/
-/*    border: none;*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    transform: translateY(-50%);*/
-/*    z-index: 10;*/
-/*    width: 32px;*/
-/*    height: 32px;*/
-/*}*/
-
-/*.swiper-button-prev {*/
-/*    left: -40px;*/
-/*}*/
-
-/*.swiper-button-next {*/
-/*    right: -40px;*/
-/*}*/
-
-/*!* Dots (pagination bullets) *!*/
-/*.swiper-pagination-bullets {*/
-/*    margin-top: 30px;*/
-/*}*/
-
-/*.swiper-pagination-bullet {*/
-/*    background: #ccc;*/
-/*    opacity: 0.5;*/
-/*    width: 10px;*/
-/*    height: 10px;*/
-/*    margin: 0 6px !important;*/
-/*    transition: all 0.3s ease;*/
-/*}*/
-
-/*.swiper-pagination-bullet-active {*/
-/*    background: #6c63ff;*/
-/*    opacity: 1;*/
-/*}*/
-
-/*!* Audio + descriere *!*/
-/*.audio-section {*/
-/*    margin: 2rem 0 1rem;*/
-/*}*/
-
-/*.attraction-description {*/
-/*    font-size: 1.1rem;*/
-/*    line-height: 1.6;*/
-/*}*/
-
-/*.carousel-controls {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    gap: 30px;*/
-/*    margin-top: 20px;*/
-/*}*/
-
-/*.carousel-controls button {*/
-/*    background: none;*/
-/*    border: none;*/
-/*    font-size: 24px;*/
-/*    cursor: pointer;*/
-/*    color: #444;*/
-/*    padding: 0 10px;*/
-/*    transition: color 0.3s ease;*/
-/*}*/
-
-/*.carousel-controls button:hover {*/
-/*    color: #6c63ff;*/
-/*}*/
-
-/*.carousel-controls .arrow {*/
-/*    background: none;*/
-/*    border: none;*/
-/*    font-size: 24px;*/
-/*    cursor: pointer;*/
-/*    color: #444;*/
-/*    transition: color 0.3s ease;*/
-/*}*/
-
-/*.carousel-controls .arrow:hover {*/
-/*    color: #6c63ff;*/
-/*}*/
-
-/*!* punctele swiper rămân între butoane *!*/
-/*.carousel-controls .swiper-pagination {*/
-/*    display: flex;*/
-/*    gap: 10px;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.swiper-pagination-bullet-active {*/
-/*    background: #6c63ff;*/
-/*    opacity: 1;*/
-/*}*/
-/*.description {*/
-/*    white-space: pre-line;*/
-/*}*/
-
-/*.description-section {*/
-/*    display: flex;*/
-/*    gap: 3rem;*/
-/*    margin-top: 2rem;*/
-/*    justify-content: center;*/
-/*    flex-wrap: wrap;*/
-/*    text-align: left;*/
-/*    font-size: 1rem;*/
-/*    line-height: 1.7;*/
-/*    padding: 1rem;*/
-/*}*/
-
-/*.left-column, .right-column {*/
-/*    flex: 1;*/
-/*    min-width: 320px;*/
-/*    max-width: 500px;*/
-/*}*/
-
-/*.section-title {*/
-/*    font-size: 1.5rem;*/
-/*    font-weight: 600;*/
-/*    margin-bottom: 1rem;*/
-/*    color: #333;*/
-/*}*/
-
-/*.section-title.purple {*/
-/*    color: #6c63ff;*/
-/*}*/
-
-/*.description-section strong {*/
-/*    color: #222;*/
-/*}*/
-
-/*.description-section br {*/
-/*    line-height: 2rem;*/
-/*}*/
-
-/*.swiper-slide {*/
-/*    transition: transform 0.5s ease, opacity 0.5s ease;*/
-/*}*/
-
-/*!* Slide-ul activ (central) - clar, mare *!*/
-/*.swiper-slide-active {*/
-/*    transform: scale(1);*/
-/*    opacity: 1;*/
-/*    z-index: 2;*/
-/*}*/
-
-/*.swiper-slide-prev,*/
-/*.swiper-slide-next {*/
-/*    transform: scale(0.85);*/
-/*    opacity: 0.5;*/
-/*    z-index: 1;*/
-/*    pointer-events: auto; !* click funcționează *!*/
-/*}*/
-
-/*.coverflow-swiper {*/
-/*    position: relative;*/
-/*    width: 100%;*/
-/*    max-width: 1000px;*/
-/*    margin: 0 auto;*/
-/*    padding-bottom: 20px;*/
-/*    overflow: hidden; !* 🟣 taie imaginile laterale *!*/
-/*    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);*/
-/*    !*noinspection CssInvalidPropertyValue *!*/
-/*    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);*/
-
-/*}*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
 /* -------------------- GENERAL PAGE STYLING -------------------- */
 .details-page {
     font-family: 'Poppins', sans-serif;
 }
 
+/*to grow sliders modify here*/
 .attraction-details-container {
-    max-width: 800px;
-    margin: 80px auto 2rem;
+    max-width: 950px;
+    margin: 60px auto 0;
     text-align: center;
 }
 
 .attraction-name {
-    margin-bottom: 1rem;
-    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 3.2rem;
+    color: #185349;
 }
 
 /* -------------------- SWIPER CAROUSEL STYLING -------------------- */
@@ -222,7 +25,7 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding-bottom: 20px;
+    padding-bottom: 35px;
     overflow: hidden;
     mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     /*noinspection CssInvalidPropertyValue */
@@ -273,36 +76,39 @@
     background: #6c63ff;
     opacity: 1;
 }
-
-/* -------------------- AUDIO PLAYER -------------------- */
-.audio-section {
-    margin: 2rem 0 1rem;
-}
-
 /* -------------------- TEXTUAL DESCRIPTION -------------------- */
 .description-section {
     display: flex;
-    gap: 3rem;
-    margin-top: 2rem;
     justify-content: center;
-    flex-wrap: wrap;
-    text-align: left;
-    font-size: 1rem;
-    line-height: 1.7;
-    padding: 1rem;
+    align-items: flex-start;
+    gap: 3rem;
+    flex-wrap: nowrap;
+    max-width: 1400px;
+    margin: 0.5rem auto;
+    padding: 0 0.5rem;
+}
+.left-column.overview {
+    flex: 2; /* sau 1.5 */
+    /*background: #f9f9f9;*/
+    /*border-radius: 6px; !* mai pătrat decât 20px *!*/
+    padding: 1.5rem 1rem;
+    /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);*/
+    /*width: 100%;*/
+    /*max-width: 650px; !* 🔹 mai mare *!*/
+    min-width: 0;
 }
 
-.left-column,
-.right-column {
+.right-column.details {
     flex: 1;
-    min-width: 320px;
-    max-width: 500px;
+    padding:  1rem 1.5rem 2rem;
+    min-width: 0;
+    margin-top: -0.8rem;
 }
 
 .section-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     color: #333;
 }
 
@@ -310,12 +116,74 @@
     color: #6c63ff;
 }
 
-.description-section strong {
-    color: #222;
+.right-column strong {
+    color: #6c63ff;
 }
 
 .description-section br {
     line-height: 2rem;
 }
+
+@media (max-width: 900px) {
+    .description-section {
+        flex-wrap: wrap;
+    }
+}
+
+.overview .overview-text {
+    max-width: none;
+}
+
+.overview-text .line1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.3;
+}
+
+.overview-text .highlight-block {
+    display: inline-block;
+    padding: 0.1em 0.3em;
+    background: rgba(108, 99, 255, 0.2); /* mov deschis */
+    border-radius: 4px;
+    color: #6c63ff;
+}
+
+.overview-text .line2 {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #777;
+    margin-top: 0.8em;
+    line-height: 1.5;
+}
+
+.overview-audio {
+    margin-top: 0.9rem;
+    padding: 0.5rem 0;
+    text-align: center;
+
+}
+
+.attraction-text-wrapper {
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+}
+
+.details strong {
+    color: #6c63ff;
+}
+
+.details-fee {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #333;
+}
+.details-fee strong {
+    color: #6c63ff;
+}
+
+
+
+
 
 
