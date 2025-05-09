@@ -56,6 +56,9 @@
     cursor: pointer;
 }
 
+.header-dark-text .landing-logo {
+    color: #2e6a5a;
+}
 
 .landing-login {
     display: flex;
@@ -79,7 +82,7 @@
 
 
 .landing-signup:hover {
-    background-color: #245243;
+    background-color: #265747;
 }
 
 .landing-body {

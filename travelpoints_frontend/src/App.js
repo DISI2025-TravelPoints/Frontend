@@ -9,6 +9,7 @@ import RequireAuth from './utils/RequireAuth';
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import HomeAdmin from "./pages/HomeAdmin";
+import AttractionDetails from "./pages/AttractionDetails";
 
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
                 <Route path="/home" element={<LandingPage />} />
                 <Route path="/reset-pass" element={<ResetPassword />}/>
                 <Route path="/forgot-pass" element={<ForgotPassword />}/>
+                <Route path="/attractions/:id" element={<AttractionDetails />} />
+                {/*<Route path="/attraction" element={<AttractionDetails />} />*/}
+
 
                 <Route
                     path="/home-admin"

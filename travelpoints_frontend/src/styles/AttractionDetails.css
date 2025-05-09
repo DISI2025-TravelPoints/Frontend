@@ -1,0 +1,151 @@
+.details-page {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.attraction-details-container {
+    max-width: 800px;
+    margin: 80px auto 2rem;
+    text-align: center;
+}
+
+.attraction-name {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+/* Swiper carousel */
+.coverflow-swiper {
+    padding: 40px 0;
+    overflow: visible;
+    position: relative;
+}
+
+/* Slide img styling */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+/* Custom arrows (left/right) */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #444; /* arrow color */
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+}
+
+.swiper-button-prev {
+    left: -40px;
+}
+
+.swiper-button-next {
+    right: -40px;
+}
+
+/* Dots (pagination bullets) */
+.swiper-pagination-bullets {
+    margin-top: 20px;
+}
+
+.swiper-pagination-bullet {
+    background: #ccc;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    margin: 0 6px !important;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background: #6c63ff;
+    opacity: 1;
+}
+
+/* Audio + descriere */
+.audio-section {
+    margin: 2rem 0 1rem;
+}
+
+.attraction-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.carousel-controls button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    color: #6c63ff;
+}
+
+.carousel-controls .arrow {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
+    transition: color 0.3s ease;
+}
+
+.carousel-controls .arrow:hover {
+    color: #6c63ff;
+}
+
+/* punctele swiper rămân între butoane */
+.carousel-controls .swiper-pagination {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.swiper-pagination-bullet {
+    background: #ccc;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background: #6c63ff;
+    opacity: 1;
+}

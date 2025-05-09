@@ -1,6 +1,8 @@
 import "../styles/AttractionCard.css";
 import { useState, useEffect } from "react";
 import { IoPlayCircleOutline, IoPauseCircleOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom';
+
 
 const AttractionCard = ({ attraction }) => {
     const imageUrl = `https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${attraction.id}/cover.jpeg`;
@@ -9,7 +11,8 @@ const AttractionCard = ({ attraction }) => {
     const audioElementId = `audio-${attraction.id}`;
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const handlePlayAudio = () => {
+    const handlePlayAudio = (e) => {
+         e.stopPropagation();
         const audio = document.getElementById(audioElementId);
         if (!audio) return;
 
@@ -36,6 +39,7 @@ const AttractionCard = ({ attraction }) => {
     }, []);
 
     return (
+        <Link to={`/attractions/${attraction.id}`} className="attraction-card-link">
         <div className="attraction-card">
             <img
                 src={imageUrl}
@@ -65,6 +69,7 @@ const AttractionCard = ({ attraction }) => {
                 </div>
             </div>
         </div>
+        </Link>
     );
 };
 
