@@ -1,17 +1,208 @@
+/*.details-page {*/
+/*    font-family: 'Poppins', sans-serif;*/
+/*}*/
+/*.attraction-details-container {*/
+/*    max-width: 800px;*/
+/*    margin: 80px auto 2rem;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.attraction-name {*/
+/*    margin-bottom: 1rem;*/
+/*    font-size: 2rem;*/
+/*}*/
+
+/*!* Swiper carousel *!*/
+/*.coverflow-swiper {*/
+/*    padding: 40px 0;*/
+/*    overflow: visible;*/
+/*    position: relative;*/
+/*}*/
+
+/*!* Slide img styling *!*/
+/*.swiper-slide img {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover;*/
+/*    border-radius: 20px;*/
+/*    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);*/
+/*    transition: transform 0.3s ease;*/
+/*}*/
+
+/*!* Custom arrows (left/right) *!*/
+/*.swiper-button-prev,*/
+/*.swiper-button-next {*/
+/*    color: #444; !* arrow color *!*/
+/*    font-size: 1.5rem;*/
+/*    background: none;*/
+/*    border: none;*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    z-index: 10;*/
+/*    width: 32px;*/
+/*    height: 32px;*/
+/*}*/
+
+/*.swiper-button-prev {*/
+/*    left: -40px;*/
+/*}*/
+
+/*.swiper-button-next {*/
+/*    right: -40px;*/
+/*}*/
+
+/*!* Dots (pagination bullets) *!*/
+/*.swiper-pagination-bullets {*/
+/*    margin-top: 30px;*/
+/*}*/
+
+/*.swiper-pagination-bullet {*/
+/*    background: #ccc;*/
+/*    opacity: 0.5;*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    margin: 0 6px !important;*/
+/*    transition: all 0.3s ease;*/
+/*}*/
+
+/*.swiper-pagination-bullet-active {*/
+/*    background: #6c63ff;*/
+/*    opacity: 1;*/
+/*}*/
+
+/*!* Audio + descriere *!*/
+/*.audio-section {*/
+/*    margin: 2rem 0 1rem;*/
+/*}*/
+
+/*.attraction-description {*/
+/*    font-size: 1.1rem;*/
+/*    line-height: 1.6;*/
+/*}*/
+
+/*.carousel-controls {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    gap: 30px;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*.carousel-controls button {*/
+/*    background: none;*/
+/*    border: none;*/
+/*    font-size: 24px;*/
+/*    cursor: pointer;*/
+/*    color: #444;*/
+/*    padding: 0 10px;*/
+/*    transition: color 0.3s ease;*/
+/*}*/
+
+/*.carousel-controls button:hover {*/
+/*    color: #6c63ff;*/
+/*}*/
+
+/*.carousel-controls .arrow {*/
+/*    background: none;*/
+/*    border: none;*/
+/*    font-size: 24px;*/
+/*    cursor: pointer;*/
+/*    color: #444;*/
+/*    transition: color 0.3s ease;*/
+/*}*/
+
+/*.carousel-controls .arrow:hover {*/
+/*    color: #6c63ff;*/
+/*}*/
+
+/*!* punctele swiper rămân între butoane *!*/
+/*.carousel-controls .swiper-pagination {*/
+/*    display: flex;*/
+/*    gap: 10px;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.swiper-pagination-bullet-active {*/
+/*    background: #6c63ff;*/
+/*    opacity: 1;*/
+/*}*/
+/*.description {*/
+/*    white-space: pre-line;*/
+/*}*/
+
+/*.description-section {*/
+/*    display: flex;*/
+/*    gap: 3rem;*/
+/*    margin-top: 2rem;*/
+/*    justify-content: center;*/
+/*    flex-wrap: wrap;*/
+/*    text-align: left;*/
+/*    font-size: 1rem;*/
+/*    line-height: 1.7;*/
+/*    padding: 1rem;*/
+/*}*/
+
+/*.left-column, .right-column {*/
+/*    flex: 1;*/
+/*    min-width: 320px;*/
+/*    max-width: 500px;*/
+/*}*/
+
+/*.section-title {*/
+/*    font-size: 1.5rem;*/
+/*    font-weight: 600;*/
+/*    margin-bottom: 1rem;*/
+/*    color: #333;*/
+/*}*/
+
+/*.section-title.purple {*/
+/*    color: #6c63ff;*/
+/*}*/
+
+/*.description-section strong {*/
+/*    color: #222;*/
+/*}*/
+
+/*.description-section br {*/
+/*    line-height: 2rem;*/
+/*}*/
+
+/*.swiper-slide {*/
+/*    transition: transform 0.5s ease, opacity 0.5s ease;*/
+/*}*/
+
+/*!* Slide-ul activ (central) - clar, mare *!*/
+/*.swiper-slide-active {*/
+/*    transform: scale(1);*/
+/*    opacity: 1;*/
+/*    z-index: 2;*/
+/*}*/
+
+/*.swiper-slide-prev,*/
+/*.swiper-slide-next {*/
+/*    transform: scale(0.85);*/
+/*    opacity: 0.5;*/
+/*    z-index: 1;*/
+/*    pointer-events: auto; !* click funcționează *!*/
+/*}*/
+
+/*.coverflow-swiper {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    max-width: 1000px;*/
+/*    margin: 0 auto;*/
+/*    padding-bottom: 20px;*/
+/*    overflow: hidden; !* 🟣 taie imaginile laterale *!*/
+/*    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);*/
+/*    !*noinspection CssInvalidPropertyValue *!*/
+/*    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);*/
+
+/*}*/
+
+/* -------------------- GENERAL PAGE STYLING -------------------- */
 .details-page {
     font-family: 'Poppins', sans-serif;
-}
-
-.navbar {
-    background: #fff;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-logo {
-    font-size: 1.5rem;
-    color: #4CAF50;
-    font-weight: bold;
 }
 
 .attraction-details-container {
@@ -25,14 +216,37 @@
     font-size: 2rem;
 }
 
-/* Swiper carousel */
+/* -------------------- SWIPER CAROUSEL STYLING -------------------- */
 .coverflow-swiper {
-    padding: 40px 0;
-    overflow: visible;
     position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    /*noinspection CssInvalidPropertyValue */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
-/* Slide img styling */
+.swiper-slide {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.swiper-slide-active {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 2;
+}
+
+.swiper-slide-prev,
+.swiper-slide-next {
+    transform: scale(0.85);
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: auto;
+}
+
 .swiper-slide img {
     width: 100%;
     height: 100%;
@@ -42,32 +256,8 @@
     transition: transform 0.3s ease;
 }
 
-/* Custom arrows (left/right) */
-.swiper-button-prev,
-.swiper-button-next {
-    color: #444; /* arrow color */
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 32px;
-    height: 32px;
-}
-
-.swiper-button-prev {
-    left: -40px;
-}
-
-.swiper-button-next {
-    right: -40px;
-}
-
-/* Dots (pagination bullets) */
 .swiper-pagination-bullets {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .swiper-pagination-bullet {
@@ -84,71 +274,48 @@
     opacity: 1;
 }
 
-/* Audio + descriere */
+/* -------------------- AUDIO PLAYER -------------------- */
 .audio-section {
     margin: 2rem 0 1rem;
 }
 
-.attraction-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-.carousel-controls {
+/* -------------------- TEXTUAL DESCRIPTION -------------------- */
+.description-section {
     display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
     justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.7;
+    padding: 1rem;
 }
 
-.carousel-controls button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #444;
-    padding: 0 10px;
-    transition: color 0.3s ease;
+.left-column,
+.right-column {
+    flex: 1;
+    min-width: 320px;
+    max-width: 500px;
 }
 
-.carousel-controls button:hover {
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.section-title.purple {
     color: #6c63ff;
 }
 
-.carousel-controls .arrow {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #444;
-    transition: color 0.3s ease;
+.description-section strong {
+    color: #222;
 }
 
-.carousel-controls .arrow:hover {
-    color: #6c63ff;
+.description-section br {
+    line-height: 2rem;
 }
 
-/* punctele swiper rămân între butoane */
-.carousel-controls .swiper-pagination {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
 
-.swiper-pagination-bullet {
-    background: #ccc;
-    opacity: 0.5;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.swiper-pagination-bullet-active {
-    background: #6c63ff;
-    opacity: 1;
-}
-.description {
-    white-space: pre-line;
-}
