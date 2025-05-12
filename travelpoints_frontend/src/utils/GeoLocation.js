@@ -34,6 +34,7 @@ const attractionIcon = new L.Icon({
 const queryDBForNearbyLocations = async (geohash) => {
     try{
         const res = await axios.get(`http://localhost/api/attraction/nearby/${geohash}`);
+        console.log(res.data);
         return res.data;
     }catch(e){
         console.error("Error querying the database for nearby locations: ", e);
