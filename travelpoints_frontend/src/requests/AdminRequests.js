@@ -81,3 +81,19 @@ export async function getAttractionById(id) {
     }
 }
 
+export async function getVisitFrequencyData(){
+    try{
+        const res = await axios.get(`${API_LOCAL_URL}${ATTRACTIONS_API}/visit-freq`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true
+        });
+        return res.data;
+    }catch(error){
+        console.error('Error fetching visit frequency data: ', error);
+        throw error;
+    }
+}
+
