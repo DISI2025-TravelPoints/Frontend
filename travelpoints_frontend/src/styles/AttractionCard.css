@@ -81,3 +81,41 @@
 .attraction-card-link * {
     text-decoration: none !important;
 }
+
+/*---wishlist----*/
+.image-wrapper {
+    position: relative;
+}
+
+/* ───── buton wishlist ───── */
+.wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    /*background: rgba(255,255,255,0.85);*/
+    background: none;
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 50%;
+    /*padding: 6px;*/
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow .2s ease-in-out;
+}
+
+/*.wishlist-btn:hover {*/
+/*    box-shadow: 0 2px 8px rgba(0,0,0,.2);*/
+/*}*/
+
+.wishlist-btn:hover {
+    transform: scale(1.1);
+}
+
+.wishlist-btn svg {
+    pointer-events: none;
+}
+
+
