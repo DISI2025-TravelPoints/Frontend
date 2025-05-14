@@ -183,6 +183,28 @@
 }
 
 
+/*----------------------------CHAT BUBBLE----------------------------*/
+.attraction-contact-bubble {
+  position: fixed;
+  bottom: 15px;
+  right: 25px;
+  z-index: 1000; 
+}
+
+.chat-icon {
+  color: #2e6a5a;
+  font-size: 50px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+chat-icon:hover{
+    color:#265747;
+    transform: scale(1.2);
+}
+
+
+
 
 
 

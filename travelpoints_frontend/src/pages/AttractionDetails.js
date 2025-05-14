@@ -9,7 +9,8 @@ import 'swiper/css/pagination';
 import Header from '../components/Header';
 import '../styles/AttractionDetails.css';
 import { useAudioPlayer } from '../utils/AudioPlayer';
-
+import Chat from "../components/user/Chat";
+import { CiChat2 } from "react-icons/ci";
 // -------------------- Subcomponents -------------------- //
 //Overview section (left column)
 function Overview({ html, audioUrl,id }) {
@@ -41,6 +42,16 @@ function Details({html, entryFee}) {
             </div>
         </div>
     );
+}
+
+function ContactBubble({attractionId}){
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+    return (
+            <div>
+                <CiChat2 className="chat-icon" onClick={() => setIsContactModalOpen(true)}>Contact Us</CiChat2>
+                <Chat isModalOpen={isContactModalOpen} setIsModalOpen={setIsContactModalOpen} attractionId={attractionId}/>
+            </div>);
 }
 
 // -------------------- Main Component -------------------- //
@@ -108,6 +119,10 @@ export default function AttractionDetails() {
                     <Details html={detailsHtml} entryFee={attraction.entryFee} />
                 </div>
             </div>
+        
+                    <div className = "attraction-contact-bubble">
+                        <ContactBubble attractionId={id}/>
+                    </div>
 
         </div>
 );

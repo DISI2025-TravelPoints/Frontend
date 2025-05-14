@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import { getRoleFromToken } from '../utils/Auth';
 import useAuthSession from '../utils/AuthSession';
+import { CiChat2 } from "react-icons/ci";
 import '../styles/Landing.css';
 
 const Header = ({ className = '' }) => {
