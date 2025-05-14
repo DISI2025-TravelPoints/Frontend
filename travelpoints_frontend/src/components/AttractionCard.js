@@ -36,12 +36,6 @@ const AttractionCard = ({ attraction, isInWishlist, onToggleWishlist }) => {
                         className={`wishlist-btn ${liked ? "liked" : ""}`}
                         onClick={handleWishlistClick}
                     >
-                        {/*{liked ? (*/}
-                        {/*    <AiFillHeart size={32} color="#e63946" />*/}
-                        {/*) : (*/}
-                        {/*    // <AiOutlineHeart size={32} color="#e63946" />*/}
-                        {/*    <AiOutlineHeart size={30} color="rgba(230,57,70,.75)" />*/}
-                        {/*)}*/}
                         {liked
                             ? <AiFillHeart size={20} />
                             : <AiOutlineHeart size={20} />

@@ -1,29 +1,60 @@
 .wishlist-page {
-    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*padding: 3rem 1rem;*/
+    padding: 6rem 1rem 3rem;
+    background: #f9f9f9;
+    min-height: calc(100vh - 80px);
 }
 
-.wishlist-page h1 {
+.wishlist-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.wishlist-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    color: #174533;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.wishlist-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #556b5a;
+    margin-top: 0.5rem;
+    opacity: 0.8;
 }
 
 .wishlist-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 3rem;
 }
 
 .wishlist-card {
     position: relative;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 1px 2px 12px rgba(0,0,0,0.1);
-    transition: transform .2s;
+    /*box-shadow: 0 4px 16px rgba(0,0,0,0.08);*/
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 300px;
 }
 
 .wishlist-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 .wishlist-card img {
@@ -33,38 +64,59 @@
 }
 
 .wishlist-info {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.25rem 1.5rem;
 }
 
 .wishlist-info h3 {
+    text-align: center;
     margin: 0 0 0.5rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: #3d3e48;
 }
 
 .wishlist-info span {
-    color: #295943;
+    font-size: 0.95rem;
+    color:  #295943;
     font-weight: 600;
+
 }
 
 .remove-btn {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: rgba(255,255,255,0.9);
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(255,255,255,0.95);
     border: none;
     border-radius: 50%;
-    padding: 0.4rem;
+    padding: 0.5rem;
     cursor: pointer;
-    transition: background .2s;
+    transition: background 0.2s;
+}
+
+
+.remove-btn {
+    transition: background 0.2s, transform 0.2s;
 }
 
 .remove-btn:hover {
-    background: rgba(230,0,0,0.1);
+    background: #c30f1f;
+    transform: scale(1.1);
 }
 
-.remove-btn svg {
-    color: #e63946;
+.remove-btn:hover svg {
+    color: #ffffff;
 }
+
+@keyframes pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.remove-btn:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
 
 
 

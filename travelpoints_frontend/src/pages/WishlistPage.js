@@ -3,6 +3,7 @@ import { getWishlist, removeFromWishlist } from '../requests/WishlistRequests';
 import { getAttractionById }           from '../requests/AdminRequests';
 import { IoTrashOutline }               from 'react-icons/io5';
 import '../styles/WishlistPage.css';
+import Header from '../components/Header';
 
 export default function WishlistPage() {
     const [items, setItems] = useState([]);   // array de attraction objects
@@ -35,29 +36,36 @@ export default function WishlistPage() {
     if (items.length === 0) return <div className="wishlist-page">Your wishlist is empty.</div>;
 
     return (
-        <div className="wishlist-page">
-            <h1>Your Wishlist</h1>
-            <div className="wishlist-grid">
-                {items.map(attr => (
-                    <div key={attr.id} className="wishlist-card">
-                        <img
-                            src={`https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${attr.id}/cover.jpeg`}
-                            alt={attr.name}
-                        />
-                        <div className="wishlist-info">
-                            <h3>{attr.name}</h3>
-                            <span>entry fee: {attr.entryFee}$</span>
+        <>
+            <Header className="header-dark-text" />
+            <div className="wishlist-page">
+                <div className="wishlist-header">
+                    <h1>Your Wishlist</h1>
+                    <p className="wishlist-subtitle">Here are the places you saved for your next trip</p>
+                </div>
+                <div className="wishlist-grid">
+                    {items.map(attr => (
+                        <div key={attr.id} className="wishlist-card">
+                            <img
+                                src={`https://travelpoints-bucket.s3.amazonaws.com/travelpoints_images/${attr.id}/cover.jpeg`}
+                                alt={attr.name}
+                            />
+                            <div className="wishlist-info">
+                                <h3>{attr.name}</h3>
+                                <span>entry fee: {attr.entryFee}$</span>
+                            </div>
+                            <button
+                                className="remove-btn"
+                                onClick={() => handleRemove(attr.id)}
+                            >
+                                <IoTrashOutline size={24}/>
+                            </button>
                         </div>
-                        <button
-                            className="remove-btn"
-                            onClick={() => handleRemove(attr.id)}
-                        >
-                            <IoTrashOutline size={24} />
-                        </button>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
+
 
