@@ -81,3 +81,49 @@
 .attraction-card-link * {
     text-decoration: none !important;
 }
+
+/*---wishlist----------------------------------------------------*/
+.image-wrapper {
+    position: relative;
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.45); /* light frosted */
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    /*transition: transform 0.2s ease;*/
+}
+
+
+.wishlist-btn:hover {
+    transform: scale(1.2);
+}
+
+.wishlist-btn svg {
+    pointer-events: none;
+    color: #333; /* default heart color */
+}
+
+/* ───── liked state ───── */
+.wishlist-btn.liked {
+    background: #f8f6df;         /* red circle */
+    /*background: none;*/
+}
+
+.wishlist-btn.liked svg {
+    /*color: #980b14;*/
+    color: #b81021;
+}
+
