@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import "../../styles/SearchResultsDropdown.css";
+import '../../styles/AttractionCard.css';
 
 const SearchResultsDropdown = ({ results, isLoading, onSelect, onClose }) => {
   if (isLoading) {
@@ -38,11 +40,13 @@ const SearchResultsDropdown = ({ results, isLoading, onSelect, onClose }) => {
         <ul className="results-list">
           {results.map((result, index) => (
             <li key={index} onClick={() => onSelect(result)}>
+              <Link to={`/attractions/${result.id}`} className="attraction-card-link">
               <FaMapMarkerAlt className="icon" />
               <div>
                 <div>{result.name}</div>
               </div>
-            </li>
+            </Link>
+          </li>
           ))}
         </ul>
       </div>
