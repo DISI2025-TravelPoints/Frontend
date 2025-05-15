@@ -144,7 +144,7 @@
 .overview-text .highlight-block {
     display: inline-block;
     padding: 0.1em 0.3em;
-    background: rgba(108, 99, 255, 0.2); /* mov deschis */
+    background: rgba(108, 99, 255, 0.2);
     border-radius: 4px;
     color: #6c63ff;
 }
@@ -180,6 +180,14 @@
 }
 .details-fee strong {
     color: #6c63ff;
+}
+
+.save-wrapper {
+    position: absolute;
+    top: 70px;   /* below header */
+    right: 12%;
+    left: auto;
+    z-index:50;
 }
 
 /* -------------------- REVIEW SECTION -------------------- */
