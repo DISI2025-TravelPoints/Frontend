@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import "../../styles/SearchResultsDropdown.css";
+import '../../styles/AttractionCard.css';
 
 const SearchResultsDropdown = ({ results, isLoading, onSelect, onClose }) => {
   if (isLoading) {
@@ -37,14 +39,26 @@ const SearchResultsDropdown = ({ results, isLoading, onSelect, onClose }) => {
         </div>
         <ul className="results-list">
           {results.map((result, index) => (
-            <li key={index} onClick={() => onSelect(result)}>
-              <FaMapMarkerAlt className="icon" />
-              <div>
-                <div>{result.name}</div>
-              </div>
-            </li>
-          ))}
+                <li key={index}>
+                  <Link
+                    to={`/attractions/${result.id}`}
+                    className="search-result-item"
+                    onClick={() => onSelect(result)}
+                  >
+                    <FaMapMarkerAlt className="result-icon" />
+                    <span className="result-name">{result.name}</span>
+                  </Link>
+                </li>
+              ))}
         </ul>
+        {/* See more button shown only if there is at least one result */}
+        {results.length > 0 && (
+          <div className="see-more-container">
+            <Link to="/search-results" state={{ results }} className="see-more-button">
+              See more
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );

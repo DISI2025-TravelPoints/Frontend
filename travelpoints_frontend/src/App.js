@@ -11,6 +11,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import HomeAdmin from "./pages/HomeAdmin";
 import AttractionDetails from "./pages/AttractionDetails";
 import WishlistPage   from './pages/WishlistPage';
+import SearchResultsPage from './pages/SearchResultsPage';
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
                 <Route path="/forgot-pass" element={<ForgotPassword />}/>
                 <Route path="/attractions/:id" element={<AttractionDetails />} />
                 <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/search-results" element={<SearchResultsPage />} />
+
 
                 <Route
                     path="/home-admin"
