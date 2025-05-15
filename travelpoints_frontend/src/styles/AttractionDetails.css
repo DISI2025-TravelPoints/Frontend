@@ -182,6 +182,144 @@
     color: #6c63ff;
 }
 
+/* -------------------- REVIEW SECTION -------------------- */
+
+.review-section.enhanced {
+    margin-top: 60px;
+    padding: 40px;
+    background: #f9f9ff;
+    border-top: 3px solid #d1d1e9;
+    border-radius: 12px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 8px rgba(0,0,0,0.06);
+}
+
+.review-section.enhanced h2 {
+    font-size: 2rem;
+    color: #4d4ae8;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.avg-rating {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #444;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.review-form label {
+    font-weight: 600;
+    color: #333;
+}
+
+.review-form input[type="number"],
+.review-form textarea {
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    background-color: white;
+    transition: border 0.2s ease-in-out;
+}
+
+.review-form input[type="number"]:focus,
+.review-form textarea:focus {
+    border-color: #6c63ff;
+    outline: none;
+}
+
+.review-form button {
+    padding: 12px 16px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.review-form button:hover {
+    background-color: #574eea;
+}
+
+.review-message {
+    text-align: center;
+    font-weight: 600;
+    color: #4d4ae8;
+    margin-top: 10px;
+}
+
+.reviews-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    background: #fdfdfd;
+    border-radius: 6px;
+}
+
+.review-actions {
+    margin-top: 10px;
+}
+
+.review-actions button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    background-color: #6c63ff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.review-actions button:hover {
+    background-color: #574fd3;
+}
+
+.review-section form {
+    margin-top: 10px;
+    background: #f4f4ff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.review-section input,
+.review-section textarea {
+    width: 100%;
+    padding: 6px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.review-section form button {
+    margin-right: 10px;
+}
+
+
+
+
 
 
 
