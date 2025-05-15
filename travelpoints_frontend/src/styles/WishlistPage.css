@@ -117,6 +117,15 @@
     animation: pulse 0.6s ease-in-out;
 }
 
+.wishlist-empty {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+
 
 
 
