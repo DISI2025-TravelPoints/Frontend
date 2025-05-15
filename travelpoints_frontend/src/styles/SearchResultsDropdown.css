@@ -113,7 +113,6 @@
   }
   
 
-  
 .search-results-dropdown.loading {
   padding: 20px;
   text-align: center;
@@ -126,3 +125,36 @@
   color: #666;
 }
   
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+.result-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.see-more-container {
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.see-more-button {
+  background-color: transparent;
+  border: none;
+  color: #343434;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}

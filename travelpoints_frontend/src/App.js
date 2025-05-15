@@ -10,7 +10,7 @@ import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import HomeAdmin from "./pages/HomeAdmin";
 import AttractionDetails from "./pages/AttractionDetails";
-
+import SearchResultsPage from './pages/SearchResultsPage';
 
 function App() {
     return (
@@ -26,6 +26,7 @@ function App() {
                 <Route path="/forgot-pass" element={<ForgotPassword />}/>
                 <Route path="/attractions/:id" element={<AttractionDetails />} />
                 {/*<Route path="/attraction" element={<AttractionDetails />} />*/}
+                <Route path="/search-results" element={<SearchResultsPage />} />
 
 
                 <Route
