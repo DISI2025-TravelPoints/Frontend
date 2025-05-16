@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+
 import "../styles/Landing.css";
 import { getRoleFromToken } from "../utils/Auth";
 import backgroundImage from "../assets/background0.png";
@@ -10,11 +11,13 @@ import GeoLocation from "../utils/GeoLocation";
 import Header from "../components/Header";
 import SearchBar from "../components/common/SearchBar";
 
+
 const Landing = () => {
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userGeohash, setUserGeohash] = useState(null);
+
 
 
   useEffect(() => {
