@@ -4,23 +4,39 @@ import "../../styles/AdminChats.css";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { Client } from "@stomp/stompjs";
-import { allocateAdminToChatRoom,fetchChatRoomMessages } from "../../requests/AdminRequests";
+import { FaUser } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
+import {
+  allocateAdminToChatRoom,
+  fetchChatRoomMessages,
+} from "../../requests/AdminRequests";
+import { Input } from "antd";
 const AdminChats = ({ email }) => {
   const [adminChatRooms, setAdminChatRooms] = useState([]);
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
-  const [selectedChatRoom, setSelectedChatRoom] = useState(null);
+  const [selectedChatRoom, setSelectedChatRoom] = useState("");
   const [messages, setMessages] = useState([]);
-
+const [newMessage, setNewMessage] = useState("");
   // websocket config
   const stompClientRef = useRef(null);
 
   const joinChatRoom = async (roomId) => {
-      const chatRoom = adminChatRooms.find((room) => room.id === roomId);
+    const chatRoom = adminChatRooms.find((room) => room.id === roomId);
 
     if (chatRoom.recipient == null || chatRoom.recipient.email !== email) {
-    await allocateAdminToChatRoom(roomId, email);
-  }
+      await allocateAdminToChatRoom(roomId, email);
+    }
   };
+
+  const handleSendMessage = () => {
+  if (newMessage.trim() === "" || !selectedChatRoom) return;
+
+  // TODO: Replace with your actual sending logic (e.g., via WebSocket)
+  console.log("Sending message:", newMessage);
+
+  // Reset input
+  setNewMessage("");
+};
 
   useEffect(() => {
     const socket = new SockJS("http://localhost/chatws");
@@ -41,13 +57,16 @@ const AdminChats = ({ email }) => {
     fetchRooms();
   }, [email]);
 
-  useEffect( ()=>{
-    const fetchMessages = async (selectedChatRoom)=>{
-        const msgs =  await fetchChatRoomMessages(selectedChatRoom);
+  useEffect(() => {
+    const fetchMessages = async () => {
+      if (selectedChatRoom !== "") {
+        const msgs = await fetchChatRoomMessages(selectedChatRoom);
         setMessages(msgs);
-    }
-    fetchMessages(selectedChatRoom); 
-  },[selectedChatRoom]);
+        console.log(msgs);
+      }
+    };
+    fetchMessages();
+  }, [selectedChatRoom]);
 
   return (
     <div className="admin-chat-container">
@@ -64,7 +83,7 @@ const AdminChats = ({ email }) => {
                   setSelectedChatRoom(room.id);
                 }}
               >
-                {room.sender.name}
+                {room.tourist.name}
               </li>
             ))
           ) : (
@@ -75,7 +94,55 @@ const AdminChats = ({ email }) => {
 
       <div className="admin-chat-content">
         <h2>Messages</h2>
-        {/* Add message display or input components here */}
+        <div className="message-list">
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className={`message-wrapper ${
+                msg.sender.role === "Admin" ? "admin-wrapper" : "user-wrapper"
+              }`}
+            >
+              <div className="sender-info">
+                {msg.sender.role === "Admin" ? (
+                  <>
+                    <RiAdminFill className="sender-icon admin-icon" />
+                    <span className="sender-name">{msg.sender.name}</span>
+                  </>
+                ) : (
+                  <>
+                    <FaUser className="sender-icon user-icon" />
+                    <span className="sender-name">{msg.sender.name}</span>
+                  </>
+                )}
+              </div>
+
+              <div
+                className={`message-bubble ${
+                  msg.sender.role === "Admin" ? "admin-msg" : "user-msg"
+                }`}
+              >
+                {msg.content}
+              </div>
+            </div>
+          ))}
+        </div>
+        {selectedChatRoom && 
+        <div className="message-input-container">
+          <input
+            type="text"
+            placeholder="Type a message..."
+            className="message-input"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSendMessage();
+            }}
+          />
+          <button onClick={handleSendMessage} className="send-button">
+            Send
+          </button>
+        </div>
+        }
       </div>
     </div>
   );

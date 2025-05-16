@@ -123,7 +123,7 @@ export async function allocateAdminToChatRoom(roomId, email){
 export async function fetchChatRoomMessages(roomId){
     try{
         const res = await axios.get(`${API_LOCAL_URL}${CHAT_API}/get-room-messages`,{
-            params:{roomId}
+            params: { roomId }
         });
         console.log(res.data);
         return res.data;
