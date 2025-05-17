@@ -13,7 +13,7 @@ const Header = ({ className = '' }) => {
 
     useEffect(() => {
         setUserRole(getRoleFromToken());
-        
+
     }, []);
 
     const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
@@ -46,6 +46,11 @@ const Header = ({ className = '' }) => {
                                     <div className="dropdown-item" onClick={() => navigate('/wishlist')}>Wishlist</div>
                                     <div className="dropdown-item" onClick={() => navigate('/account')}>Account</div>
                                     <div className='dropdown-item' onClick={()=> navigate('/chats')}>Chats </div>
+                                </>
+                            )}
+                            {userRole === 'Admin' && (
+                                <>
+                                    <div className="dropdown-item" onClick={() => navigate('/home-admin')}>Dashboard</div>
                                 </>
                             )}
                             <div className="dropdown-item" onClick={handleLogout}>

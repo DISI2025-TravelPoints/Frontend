@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { useWebSocket } from "../utils/WebSocketContext";
@@ -11,14 +12,13 @@ import GeoLocation from "../utils/GeoLocation";
 import Header from "../components/Header";
 import SearchBar from "../components/common/SearchBar";
 
-
 const Landing = () => {
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userGeohash, setUserGeohash] = useState(null);
   const stompClientRef = useWebSocket();
-
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     setUserRole(getRoleFromToken());
@@ -37,24 +37,36 @@ const Landing = () => {
   //              }
   //         }, [navigate]);
 
-
   useEffect(() => {
-    if(userRole==='Admin'){ //handles room creation notification
+    if (userRole === "Admin") {
+      //handles room creation notification
       stompClientRef.current.subscribe("/notification/admin", (msg) => {
-        console.log("notification: ", msg.body);
+        const notificationData = JSON.parse(msg.body);
+        console.log(notificationData);
+         messageApi.open({
+        type: "info",
+        duration: 3,
+        content: `A new ticket has been opened for attraction: ${notificationData.chatRoom.attractionId}`,
+      });
       });
     }
 
-    //basic message notification 
-    stompClientRef.current.subscribe("/notification/messages", (msg)=>{
-      console.log("message notification: ", msg.body);
-    })
+    //basic message notification
+    stompClientRef.current.subscribe("/notification/messages", (msg) => {
+      const notificationData = JSON.parse(msg.body);
+      messageApi.open({
+        type: "info",
+        duration: 3,
+        content: `Got a message from: ${notificationData.chatRoom.tourist.name}`,
+      });
+    });
   }, []);
 
   const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
 
   return (
     <div className="landing-page">
+      {contextHolder}
       <Header />
       {/* HERO SECTION */}
       <div
@@ -86,7 +98,6 @@ const Landing = () => {
       >
         <Destinations />
       </div>
-      
     </div>
   );
 };

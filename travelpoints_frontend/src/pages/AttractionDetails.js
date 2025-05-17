@@ -11,6 +11,8 @@ import '../styles/AttractionDetails.css';
 import { useAudioPlayer } from '../utils/AudioPlayer';
 import ContactChat from "../components/user/ContactChat";
 import { CiChat2 } from "react-icons/ci";
+import { message } from "antd";
+
 // -------------------- Subcomponents -------------------- //
 //Overview section (left column)
 function Overview({ html, audioUrl,id }) {
@@ -44,13 +46,13 @@ function Details({html, entryFee}) {
     );
 }
 
-function ContactBubble({attractionId}){
+function ContactBubble({attractionId, messageApi}){
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
     return (
             <div>
                 <CiChat2 className="chat-icon" onClick={() => setIsContactModalOpen(true)}>Contact Us</CiChat2>
-                <ContactChat isModalOpen={isContactModalOpen} setIsModalOpen={setIsContactModalOpen} attractionId={attractionId}/>
+                <ContactChat isModalOpen={isContactModalOpen} setIsModalOpen={setIsContactModalOpen} attractionId={attractionId} messageApi={messageApi}/>
             </div>);
 }
 
@@ -60,6 +62,7 @@ export default function AttractionDetails() {
     const [attraction, setAttraction] = useState(null);
     const [overviewHtml, setOverviewHtml] = useState('');
     const [detailsHtml, setDetailsHtml] = useState('');
+const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         async function fetchData() {
@@ -86,6 +89,7 @@ export default function AttractionDetails() {
 
     return (
         <div className="details-page">
+            {contextHolder}
             <Header className="header-dark-text"/>
             <div className="attraction-details-container">
                 <h1 className="attraction-name gradient-text">{attraction.name}</h1>
@@ -121,7 +125,7 @@ export default function AttractionDetails() {
             </div>
         
                     <div className = "attraction-contact-bubble">
-                        <ContactBubble attractionId={id}/>
+                        <ContactBubble attractionId={id} messageApi={messageApi}/>
                     </div>
 
         </div>
