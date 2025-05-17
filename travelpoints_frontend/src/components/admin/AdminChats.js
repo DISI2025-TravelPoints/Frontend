@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getEmptyOrAllocatedRooms } from "../../requests/AdminRequests";
+import { useWebSocket } from "../../utils/WebSocketContext";
 import "../../styles/AdminChats.css";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
@@ -11,14 +12,16 @@ import {
   fetchChatRoomMessages,
 } from "../../requests/AdminRequests";
 import { Input } from "antd";
+import { getEmailFromToken } from "../../utils/Auth";
 const AdminChats = ({ email }) => {
   const [adminChatRooms, setAdminChatRooms] = useState([]);
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
   const [selectedChatRoom, setSelectedChatRoom] = useState("");
   const [messages, setMessages] = useState([]);
-const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
   // websocket config
-  const stompClientRef = useRef(null);
+  const stompClientRef = useWebSocket();
 
   const joinChatRoom = async (roomId) => {
     const chatRoom = adminChatRooms.find((room) => room.id === roomId);
@@ -29,25 +32,23 @@ const [newMessage, setNewMessage] = useState("");
   };
 
   const handleSendMessage = () => {
-  if (newMessage.trim() === "" || !selectedChatRoom) return;
-
-  // TODO: Replace with your actual sending logic (e.g., via WebSocket)
-  console.log("Sending message:", newMessage);
-
-  // Reset input
-  setNewMessage("");
-};
-
-  useEffect(() => {
-    const socket = new SockJS("http://localhost/chatws");
-    const stompClient = Stomp.over(socket);
-    stompClient.connect({}, (frame) => {
-      stompClient.subscribe("/topic/greetings", (greeting) => {
-        console.log("greetings" + greeting.body);
-      });
-      stompClient.send("/app/chatws", {}, JSON.stringify({ name: "idk" }));
-    });
-  }, []);
+    if (newMessage !== "" && recipientEmail !== "") {
+      const message = {
+        content: newMessage,
+        recipientEmail: recipientEmail,
+        senderEmail: email,
+        chatRoomId: selectedChatRoom,
+      };
+      
+      if (stompClientRef.current?.connected) {
+        stompClientRef.current.publish({
+          destination: "/app/chatws",
+          body: JSON.stringify(message),
+        });
+      }
+      setNewMessage("");
+    }
+  };
 
   useEffect(() => {
     async function fetchRooms() {
@@ -66,12 +67,42 @@ const [newMessage, setNewMessage] = useState("");
       }
     };
     fetchMessages();
+    let subscription;
+
+    if (stompClientRef && stompClientRef.current && selectedChatRoom !== "") {
+      subscription = stompClientRef.current.subscribe(
+        `/topic/chatroom.${selectedChatRoom}`,
+        (msg) => {
+          const chatMessage = JSON.parse(msg.body);
+          console.log("Received message:", chatMessage);
+          setMessages((prevMessages) => [...prevMessages, chatMessage]);
+        }
+      );
+    }
   }, [selectedChatRoom]);
 
   return (
     <div className="admin-chat-container">
       <div className="admin-chat-sidebar">
         <h2>Chat Rooms</h2>
+        {selectedChatRoom && (
+          <div className="attraction-info-banner">
+            <span>Chat about Attraction:</span>
+            <button
+              className="go-to-attraction-button"
+              onClick={() => {
+                const room = adminChatRooms.find(
+                  (room) => room.id === selectedChatRoom
+                );
+                if (room?.attractionId) {
+                  window.open(`/attractions/${room.attractionId}`, "_blank");
+                }
+              }}
+            >
+              View Attraction
+            </button>
+          </div>
+        )}
         <ul className="chat-room-list">
           {adminChatRooms && adminChatRooms.length > 0 ? (
             adminChatRooms.map((room) => (
@@ -81,6 +112,7 @@ const [newMessage, setNewMessage] = useState("");
                 onClick={() => {
                   joinChatRoom(room.id);
                   setSelectedChatRoom(room.id);
+                  setRecipientEmail(room.tourist.email);
                 }}
               >
                 {room.tourist.name}
@@ -94,6 +126,7 @@ const [newMessage, setNewMessage] = useState("");
 
       <div className="admin-chat-content">
         <h2>Messages</h2>
+        <hr></hr>
         <div className="message-list">
           {messages.map((msg) => (
             <div
@@ -126,23 +159,23 @@ const [newMessage, setNewMessage] = useState("");
             </div>
           ))}
         </div>
-        {selectedChatRoom && 
-        <div className="message-input-container">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            className="message-input"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSendMessage();
-            }}
-          />
-          <button onClick={handleSendMessage} className="send-button">
-            Send
-          </button>
-        </div>
-        }
+        {selectedChatRoom && (
+          <div className="message-input-container">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              className="message-input"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSendMessage();
+              }}
+            />
+            <button onClick={handleSendMessage} className="send-button">
+              Send
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

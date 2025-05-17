@@ -67,3 +67,15 @@ export async function sendContactMessageRequest(message) {
     console.error(error);
   }
 }
+
+export async function fetchTouristChatRooms(email){
+  try{
+        const res = await axios.get(`${API_LOCAL_URL}${CHAT_API}/get-tourist-chat-room`,{
+            params: { email }
+        });
+        console.log(res.data);
+        return res.data;
+    }catch(error){
+        console.error(error);
+    }
+}

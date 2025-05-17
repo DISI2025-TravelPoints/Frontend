@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
-
+import { useWebSocket } from "../utils/WebSocketContext";
 import "../styles/Landing.css";
 import { getRoleFromToken } from "../utils/Auth";
 import backgroundImage from "../assets/background0.png";
@@ -17,14 +17,14 @@ const Landing = () => {
   const [userRole, setUserRole] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userGeohash, setUserGeohash] = useState(null);
-
+  const stompClientRef = useWebSocket();
 
 
   useEffect(() => {
     setUserRole(getRoleFromToken());
   }, []);
 
-  //FIXME commented this because when in admin-dashboard we can't go back to the home page
+  // commented this because when in admin-dashboard we can't go back to the home page
 
   // useEffect(() => {
   //          const role = getRoleFromToken();
@@ -36,6 +36,20 @@ const Landing = () => {
   //                    navigate('/');
   //              }
   //         }, [navigate]);
+
+
+  useEffect(() => {
+    if(userRole==='Admin'){ //handles room creation notification
+      stompClientRef.current.subscribe("/notification/admin", (msg) => {
+        console.log("notification: ", msg.body);
+      });
+    }
+
+    //basic message notification 
+    stompClientRef.current.subscribe("/notification/messages", (msg)=>{
+      console.log("message notification: ", msg.body);
+    })
+  }, []);
 
   const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
 
