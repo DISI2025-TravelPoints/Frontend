@@ -6,17 +6,22 @@ import { FaUser } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import "../../styles/Chat.css";
 import "../../styles/AdminChats.css";
+import "../../styles/HomeAdmin.css";
+import {  FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { useWebSocket } from "../../utils/WebSocketContext";
+import Header from "../Header";
+import {  useNavigate  } from "react-router-dom";
 
 const Chat = () => {
   const [chatRooms, setChatRooms] = useState([]);
   const [selectedChatRoom, setSelectedChatRoom] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+    const [dropdownOpen, setDropdownOpen] = useState(false);
   const [recipientEmail, setRecipientEmail] = useState("");
   const email = getEmailFromToken();
   const stompClientRef = useWebSocket();
-
+  const navigate = useNavigate();
   const sendMessage = () => {
    
     if (newMessage !== "" && recipientEmail !== "") {
@@ -73,6 +78,27 @@ const Chat = () => {
   }, [selectedChatRoom]);
 
   return (
+    <>
+    <header className="landing-header-with-breadcrumbs">
+        <div style={{ position: "relative" }}>
+          <FaUserCircle
+            className="landing-avatar"
+            style={{ fontSize: "40px", color: "#2e6a5a", cursor: "pointer" }}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+          {dropdownOpen && (
+            <div className="landing-dropdown">
+              <>
+                <div 
+                onClick={()=>navigate('/')}
+                className="dropdown-item">
+                  Home
+                </div>
+              </>
+            </div>
+          )}
+        </div>
+      </header>
     <div className="chat-container">
       <div className="chat-sidebar">
         <h3>Chat Rooms</h3>
@@ -81,13 +107,13 @@ const Chat = () => {
             key={room.id}
             onClick={() => {
               setSelectedChatRoom(room.id);
-              setRecipientEmail(room.admin.email);
+              setRecipientEmail(room.admin?.email || "");
             }}
             className={`chat-room-item ${
               selectedChatRoom?.id === room.id ? "active" : ""
             }`}
           >
-            Room #{room.attractionId}
+            Room #{room.id}
           </div>
         ))}
       </div>
@@ -148,7 +174,8 @@ const Chat = () => {
           </p>
         )}
       </div>
-    </div>
+    </div>  
+    </>
   );
 };
 export default Chat;

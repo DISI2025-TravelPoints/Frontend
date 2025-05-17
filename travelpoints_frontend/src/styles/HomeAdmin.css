@@ -42,7 +42,7 @@
 
 .landing-header-with-breadcrumbs {
     display: flex;
-    justify-content: space-between; 
+    justify-content: right; 
     align-items: center;
     padding: 20px 40px;
     border-bottom: 1px solid #ccc;
