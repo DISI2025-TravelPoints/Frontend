@@ -1,0 +1,47 @@
+.save-btn {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    background: #fff;
+    color: #031905;
+    border: 1px solid #000;
+    border-radius: 990px;
+    font-weight: 550;
+    font-family: 'Poppins', sans-serif;
+    /*padding: .45rem 1.4rem;*/
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+    transition: background .25s, color .25s;
+}
+
+.save-btn .heart-icon {
+    /*font-size: 1rem;*/
+    font-size: 0.95rem;
+    transition: color .25s;
+    color: #000;
+}
+
+/* Hover – inverse colours */
+.save-btn:not(.saved):hover {
+    background: #185349;
+    color: #fff;
+}
+
+.save-btn:not(.saved):hover .heart-icon {
+    color: #fff;
+}
+
+.save-btn.saved {
+    border-color: #09201d;
+}
+
+.save-btn.saved .heart-icon {
+    /*color:  #a50708;*/
+    color: #b81021;
+}
+
+.save-btn.saved:hover {
+    background: #fff;
+    color: #000;
+}
+

@@ -10,6 +10,8 @@ const userApi = axios.create({
     }
 });
 
+
+
 userApi.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
@@ -30,6 +32,9 @@ userApi.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
+export const getLoggedInUser = () => {
+    return userApi.get("/api/user/me");
+};
 
 
 export default userApi;
