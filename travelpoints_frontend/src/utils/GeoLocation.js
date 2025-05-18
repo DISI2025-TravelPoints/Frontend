@@ -126,7 +126,7 @@ const GeoLocation = ({ setUserGeohash }) => {
             icon={attractionIcon}
           >
             <Popup>
-              <Link to={`/attraction/${attraction.id}`}>
+              <Link to={`/attractions/${attraction.id}`}>
                 <b>{attraction.name}</b>
               </Link>
             </Popup>
