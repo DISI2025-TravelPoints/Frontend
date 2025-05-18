@@ -7,23 +7,22 @@ import { RiAdminFill } from "react-icons/ri";
 import "../../styles/Chat.css";
 //import "../../styles/AdminChats.css";
 import "../../styles/HomeAdmin.css";
-import {  FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { useWebSocket } from "../../utils/WebSocketContext";
 import Header from "../Header";
-import {  useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const [chatRooms, setChatRooms] = useState([]);
   const [selectedChatRoom, setSelectedChatRoom] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [recipientEmail, setRecipientEmail] = useState("");
   const email = getEmailFromToken();
   const stompClientRef = useWebSocket();
   const navigate = useNavigate();
   const sendMessage = () => {
-   
     if (newMessage !== "" && recipientEmail !== "") {
       const message = {
         content: newMessage,
@@ -79,7 +78,7 @@ const Chat = () => {
 
   return (
     <>
-    <header className="user-landing-header-with-breadcrumbs">
+      <header className="user-landing-header-with-breadcrumbs">
         <div style={{ position: "relative" }}>
           <FaUserCircle
             className="landing-avatar"
@@ -89,9 +88,7 @@ const Chat = () => {
           {dropdownOpen && (
             <div className="landing-dropdown">
               <>
-                <div 
-                onClick={()=>navigate('/')}
-                className="dropdown-item">
+                <div onClick={() => navigate("/")} className="dropdown-item">
                   Home
                 </div>
               </>
@@ -99,83 +96,85 @@ const Chat = () => {
           )}
         </div>
       </header>
-    <div className="chat-container">
-      <div className="chat-sidebar">
-        <h3>Chat Rooms</h3>
-        {chatRooms.map((room) => (
-          <div
-            key={room.id}
-            onClick={() => {
-              setSelectedChatRoom(room.id);
-              setRecipientEmail(room.admin?.email || "");
-            }}
-            className={`chat-room-item ${
-              selectedChatRoom === room.id ? "active" : ""
-            }`}
-          >
-            Room #{room.id}
-          </div>
-          
-        ))}
-      </div>
+      <div className="chat-container">
+        <div className="chat-sidebar">
+          <h3>Chat Rooms</h3>
+          {chatRooms.map((room) => (
+            <div
+              key={room.id}
+              onClick={() => {
+                setSelectedChatRoom(room.id);
+                setRecipientEmail(room.admin?.email || "");
+              }}
+              className={`chat-room-item ${
+                selectedChatRoom === room.id ? "active" : ""
+              }`}
+            >
+              Room #{room.id}
+            </div>
+          ))}
+        </div>
 
-      <div className="chat-window">
-        {selectedChatRoom ? (
-          <>
-            <div className="message-list">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`message-wrapper ${
-                    msg.sender.role === "Admin"
-                      ? "admin-wrapper"
-                      : "user-wrapper"
-                  }`}
-                >
-                  <div className="sender-info">
-                    {msg.sender.role === "Admin" ? (
-                      <>
-                        <RiAdminFill className="sender-icon admin-icon" />
-                        <span className="sender-name">{msg.sender.name}</span>
-                      </>
-                    ) : (
-                      <>
-                        <FaUser className="sender-icon user-icon" />
-                        <span className="sender-name">{msg.sender.name}</span>
-                      </>
-                    )}
-                  </div>
-
+        <div className="chat-window">
+          {selectedChatRoom ? (
+            <>
+              <div className="message-list">
+                {messages.map((msg) => (
                   <div
-                    className={`message-bubble ${
-                      msg.sender.role === "Admin" ? "admin-msg" : "user-msg"
+                    key={msg.id}
+                    className={`message-wrapper ${
+                      msg.sender.role === "Admin"
+                        ? "admin-wrapper"
+                        : "user-wrapper"
                     }`}
                   >
-                    {msg.content}
+                    <div className="sender-info">
+                      {msg.sender.role === "Admin" ? (
+                        <>
+                          <RiAdminFill className="sender-icon admin-icon" />
+                          <span className="sender-name">{msg.sender.name}</span>
+                        </>
+                      ) : (
+                        <>
+                          <FaUser className="sender-icon user-icon" />
+                          <span className="sender-name">{msg.sender.name}</span>
+                        </>
+                      )}
+                    </div>
+
+                    <div
+                      className={`message-bubble ${
+                        msg.sender.role === "Admin" ? "admin-msg" : "user-msg"
+                      }`}
+                    >
+                      {msg.content}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className="chat-input-container">
-              <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                className="chat-input"
-                placeholder="Type your message..."
-              />
-              <button onClick={sendMessage} className="chat-send-button">
-                Send
-              </button>
-            </div>
-          </>
-        ) : (
-          <p style={{ padding: "1rem" }}>
-            Select a chat room to start chatting.
-          </p>
-        )}
+                ))}
+              </div>
+              <div className="chat-input-container">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") sendMessage();
+                  }}
+                  className="chat-input"
+                  placeholder="Type your message..."
+                />
+                <button onClick={sendMessage} className="chat-send-button">
+                  Send
+                </button>
+              </div>
+            </>
+          ) : (
+            <p style={{ padding: "1rem" }}>
+              Select a chat room to start chatting.
+            </p>
+          )}
+        </div>
       </div>
-    </div>  
     </>
   );
 };
