@@ -1,5 +1,4 @@
 
-
 .admin-sidebar-container{
     width: 15%;
     height: 100vh;
@@ -42,13 +41,14 @@
 
 .landing-header-with-breadcrumbs {
     display: flex;
-    justify-content: right; 
+    justify-content: space-between; 
     align-items: center;
     padding: 20px 40px;
     border-bottom: 1px solid #ccc;
     background-color: white;
     position: relative;
 }
+
 
 .admin-breadcrumb {
     font-size: 1.1rem;

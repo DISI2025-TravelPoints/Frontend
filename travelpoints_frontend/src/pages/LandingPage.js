@@ -38,28 +38,33 @@ const Landing = () => {
   //         }, [navigate]);
 
   useEffect(() => {
-    if (userRole === "Admin") {
-      //handles room creation notification
-      stompClientRef.current.subscribe("/notification/admin", (msg) => {
+    if (stompClientRef.current) {
+      if (userRole === "Admin") {
+        //handles room creation notification
+        stompClientRef.current.subscribe("/notification/admin", (msg) => {
+          const notificationData = JSON.parse(msg.body);
+          console.log(notificationData);
+          messageApi.open({
+            type: "info",
+            duration: 3,
+            content: `A new ticket has been opened for attraction: ${notificationData.chatRoom.attractionId}`,
+          });
+        });
+      }
+
+      //basic message notification
+      stompClientRef.current.subscribe("/notification/messages", (msg) => {
         const notificationData = JSON.parse(msg.body);
-        console.log(notificationData);
-         messageApi.open({
-        type: "info",
-        duration: 3,
-        content: `A new ticket has been opened for attraction: ${notificationData.chatRoom.attractionId}`,
-      });
+        messageApi.open({
+          type: "info",
+          duration: 3,
+          content: `Got a message from: ${notificationData.chatRoom.tourist.name}`,
+        });
       });
     }
-
-    //basic message notification
-    stompClientRef.current.subscribe("/notification/messages", (msg) => {
-      const notificationData = JSON.parse(msg.body);
-      messageApi.open({
-        type: "info",
-        duration: 3,
-        content: `Got a message from: ${notificationData.chatRoom.tourist.name}`,
-      });
-    });
+    else{
+        navigate('/login');
+    }
   }, []);
 
   const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
