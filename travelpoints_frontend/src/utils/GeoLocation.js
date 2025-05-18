@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Geohash from 'ngeohash';
 import L from 'leaflet';
@@ -87,7 +87,7 @@ const GeoLocation=({setUserGeohash}) => {
             setInitialLocationSet(true);
         },
     });
- 
+    return null;
   }
  
   const defaultCenter = { lat: 51.505, lng: -0.09 };
@@ -102,9 +102,9 @@ const GeoLocation=({setUserGeohash}) => {
       />
       <LocationMarker />
       {nearbyAttractions && nearbyAttractions.length > 0 && 
-      nearbyAttractions.map((attraction, index) => (
+      nearbyAttractions.map((attraction, _) => (
         <Marker
-          key={attraction.id || index}
+          key={attraction.id}
           position={[attraction.latitude, attraction.longitude]}
           icon={attractionIcon} 
         >

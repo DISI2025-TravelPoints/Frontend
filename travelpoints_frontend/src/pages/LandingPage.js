@@ -20,16 +20,17 @@ const Landing = () => {
         setUserRole(getRoleFromToken());
     }, []);
 
-    useEffect(() => {
-             const role = getRoleFromToken();
-              setUserRole(role);
-             if (role === 'Admin') {
-                    navigate('/home-admin');
-                 } else if (role === 'Tourist') {
-                    //sau putem duce turistii la profil
-                       navigate('/');
-                 }
-            }, [navigate]);
+    // useEffect(() => {
+    //          const role = getRoleFromToken();
+    //           setUserRole(role);
+    //          if (role === 'Admin') {
+    //                 navigate('/home-admin');
+    //              } else if (role === 'Tourist') {
+    //                 //sau putem duce turistii la profil
+    //                    navigate('/');
+    //              }
+    //         }, [navigate]);
+    
 
     const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
 
