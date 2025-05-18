@@ -9,6 +9,8 @@ import useAuthSession from '../utils/AuthSession';
 import GeoLocation from "../utils/GeoLocation";
 import Header from "../components/Header";
 import SearchBar from "../components/common/SearchBar";
+import LiveOffers from "../components/LiveOffers";
+
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -36,6 +38,15 @@ const Landing = () => {
     return (
         <div className="landing-page">
             <Header />
+
+            {/*Test*/}
+            {/* LIVE OFFERS dacă userul este logat */}
+            {localStorage.getItem("token") && (
+                <div className="live-offers-wrapper">
+                    <LiveOffers />
+                </div>
+            )}
+
             {/* HERO SECTION */}
             <div
                 className="landing-hero"

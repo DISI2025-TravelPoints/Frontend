@@ -6,6 +6,7 @@ import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import "../styles/HomeAdmin.css";
 import "../styles/Landing.css";
 import useAuthSession from '../utils/AuthSession';
+import AdminManageOffers from "./AdminManageOffers";
 const HomeAdmin = () => {
 
   const AdminAttractionDashboard = lazy(() => import( '../components/admin/AdminAttractionDashboard'));
@@ -29,6 +30,9 @@ const HomeAdmin = () => {
         break;
       case "reviews":
         break;
+      case "offers":
+        setSelectedSettingPage(<AdminManageOffers />);
+        break;
     }
   }, [selectedSetting]);
 
@@ -38,6 +42,7 @@ const HomeAdmin = () => {
     visits: "Manage Visit Frequency",
     attractions: "Manage Attractions",
     reviews: "Manage Reviews",
+    offers: "Manage Offers",
   };
 
   return (
@@ -64,22 +69,28 @@ const HomeAdmin = () => {
                   Home
                 </div>
                 <div
-                  className="dropdown-item"
-                  onClick={() => setSelectedSetting("attractions")}
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("attractions")}
                 >
                   Manage Attraction
                 </div>
                 <div
-                  className="dropdown-item"
-                  onClick={() => setSelectedSetting("reviews")}
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("reviews")}
                 >
                   Manage Reviews
                 </div>
                 <div
-                  className="dropdown-item"
-                  onClick={() => setSelectedSetting("visits")} // might need to change name
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("visits")} // might need to change name
                 >
-                  Manage Visits 
+                  Manage Visits
+                </div>
+                <div
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("offers")}
+                >
+                  Manage Offers
                 </div>
               </>
 

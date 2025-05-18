@@ -1,0 +1,108 @@
+.manage-offers-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.manage-offers-container h2 {
+    margin-top: 35px;
+    margin-bottom: 40px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2e6a5a;
+    font-family: 'Poppins', sans-serif;
+}
+
+.offer-input,
+.offer-textarea {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: none;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.offer-textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Select styled like input */
+select.offer-input {
+    appearance: none;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    color: #6c757d; /* gri pentru textul default */
+    background-image: url("data:image/svg+xml,%3Csvg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+
+/* Wrapper for MUI picker */
+.date-picker-wrapper {
+    margin-bottom: 24px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.users-section {
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.users-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.users-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.preview-btn, .submit-btn, .cancel-btn {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.preview-btn {
+    background-color: #406cae;
+    color: white;
+}
+
+.submit-btn {
+    background-color: #40af7a;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #708288;
+    color: white;
+}
+

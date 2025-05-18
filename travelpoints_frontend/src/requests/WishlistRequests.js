@@ -26,4 +26,20 @@ export const removeFromWishlist = (id) =>
     axiosAuth.delete(`${WL}/remove`,
         { params: { attractionId: id } });
 
+export const getUsersByAttraction = (attractionId) =>
+    axiosAuth.get(`/api/wishlist/users-by-attraction/${attractionId}`)
+        .then(res => res.data)
+        .catch(err => {
+            console.error("Error fetching users by attraction:", err);
+            return [];
+        });
+
+export const sendOffer = (payload) =>
+    axiosAuth.post("/api/offers/send", payload)
+        .then(r => r.data);
+
+
+
+
+
 
