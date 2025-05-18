@@ -79,7 +79,7 @@ const Chat = () => {
 
   return (
     <>
-    <header className="landing-header-with-breadcrumbs">
+    <header className="user-landing-header-with-breadcrumbs">
         <div style={{ position: "relative" }}>
           <FaUserCircle
             className="landing-avatar"
@@ -110,11 +110,12 @@ const Chat = () => {
               setRecipientEmail(room.admin?.email || "");
             }}
             className={`chat-room-item ${
-              selectedChatRoom?.id === room.id ? "active" : ""
+              selectedChatRoom === room.id ? "active" : ""
             }`}
           >
             Room #{room.id}
           </div>
+          
         ))}
       </div>
 
