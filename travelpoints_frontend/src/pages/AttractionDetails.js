@@ -9,6 +9,9 @@ import 'swiper/css/pagination';
 import Header from '../components/Header';
 import '../styles/AttractionDetails.css';
 import { useAudioPlayer } from '../utils/AudioPlayer';
+import ContactChat from "../components/user/ContactChat";
+import { CiChat2 } from "react-icons/ci";
+import * as antd from 'antd';
 import SaveButton from '../components/SaveButton';
 import {
     getWishlist,
@@ -59,12 +62,23 @@ function Details({html, entryFee}) {
     );
 }
 
+function ContactBubble({attractionId, messageApi}){
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+    return (
+            <div>
+                <CiChat2 className="chat-icon" onClick={() => setIsContactModalOpen(true)}>Contact Us</CiChat2>
+                <ContactChat isModalOpen={isContactModalOpen} setIsModalOpen={setIsContactModalOpen} attractionId={attractionId} messageApi={messageApi}/>
+            </div>);
+}
+
 // -------------------- Main Component -------------------- //
 export default function AttractionDetails() {
     const {id} = useParams();
     const [attraction, setAttraction] = useState(null);
     const [overviewHtml, setOverviewHtml] = useState('');
     const [detailsHtml, setDetailsHtml] = useState('');
+    const [messageApi, contextHolder] = antd.message.useMessage();
     const [saved, setSaved] = useState(false);
     const isLoggedIn = !!localStorage.getItem('token');
 
@@ -200,6 +214,7 @@ export default function AttractionDetails() {
 
     return (
         <div className="details-page">
+            {contextHolder}
             <Header className="header-dark-text"/>
 
             {isLoggedIn && (
@@ -320,6 +335,10 @@ export default function AttractionDetails() {
 
                 </div>
             </div>
+        
+                    <div className = "attraction-contact-bubble">
+                        <ContactBubble attractionId={id} messageApi={messageApi}/>
+                    </div>
 
         </div>
 );
