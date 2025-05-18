@@ -11,7 +11,7 @@ import '../styles/AttractionDetails.css';
 import { useAudioPlayer } from '../utils/AudioPlayer';
 import ContactChat from "../components/user/ContactChat";
 import { CiChat2 } from "react-icons/ci";
-import { message } from "antd";
+import * as antd from 'antd';
 import SaveButton from '../components/SaveButton';
 import {
     getWishlist,
@@ -78,7 +78,7 @@ export default function AttractionDetails() {
     const [attraction, setAttraction] = useState(null);
     const [overviewHtml, setOverviewHtml] = useState('');
     const [detailsHtml, setDetailsHtml] = useState('');
-const [messageApi, contextHolder] = message.useMessage();
+    const [messageApi, contextHolder] = antd.message.useMessage();
     const [saved, setSaved] = useState(false);
     const isLoggedIn = !!localStorage.getItem('token');
 

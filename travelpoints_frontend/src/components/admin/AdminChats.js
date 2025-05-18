@@ -13,6 +13,7 @@ import {
 } from "../../requests/AdminRequests";
 import { Input } from "antd";
 import { getEmailFromToken } from "../../utils/Auth";
+import { useNavigate } from "react-router-dom";
 const AdminChats = ({ email }) => {
   const [adminChatRooms, setAdminChatRooms] = useState([]);
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
@@ -20,6 +21,7 @@ const AdminChats = ({ email }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
+  const navigate = useNavigate();
   // websocket config
   const stompClientRef = useWebSocket();
 
@@ -95,7 +97,7 @@ const AdminChats = ({ email }) => {
                   (room) => room.id === selectedChatRoom
                 );
                 if (room?.attractionId) {
-                  window.open(`/attractions/${room.attractionId}`, "_blank");
+                  navigate(`/attractions/${room.attractionId}`);
                 }
               }}
             >
