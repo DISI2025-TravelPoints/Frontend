@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_DEPLOY_URL } from "../api";
 import { API_LOCAL_URL } from "../api";
 const ATTRACTIONS_API = "/api/attraction";
-
+const CHAT_API = "/api/chat";
 //TODO add credentials to axios for admin authorization
 
 export async function getAllAttractions() {
@@ -94,6 +94,41 @@ export async function getVisitFrequencyData(){
     }catch(error){
         console.error('Error fetching visit frequency data: ', error);
         throw error;
+    }
+}
+
+export async function getEmptyOrAllocatedRooms(email){
+    try{
+        const res = await axios.get(`${API_LOCAL_URL}${CHAT_API}/get-empty-room`, {
+            params: { email }
+        });
+       return res.data;
+    }
+    catch(error){
+        console.error('Error fetching visit frequency data: ', error);
+    }
+}
+
+export async function allocateAdminToChatRoom(roomId, email){
+    try{
+        const res = await axios.post(`${API_LOCAL_URL}${CHAT_API}/join-room/${roomId}`,{}, {
+            params: { email }
+        });
+        return res.data;
+    }catch(error){
+        console.error(error);
+    }
+}
+
+export async function fetchChatRoomMessages(roomId){
+    try{
+        const res = await axios.get(`${API_LOCAL_URL}${CHAT_API}/get-room-messages`,{
+            params: { roomId }
+        });
+        console.log(res.data);
+        return res.data;
+    }catch(error){
+        console.error(error);
     }
 }
 
