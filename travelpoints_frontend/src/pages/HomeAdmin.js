@@ -6,10 +6,14 @@ import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import "../styles/HomeAdmin.css";
 import "../styles/Landing.css";
 import useAuthSession from '../utils/AuthSession';
+import { getEmailFromToken } from "../utils/Auth";
+
+import AdminManageOffers from "./AdminManageOffers";
 const HomeAdmin = () => {
 
   const AdminAttractionDashboard = lazy(() => import( '../components/admin/AdminAttractionDashboard'));
   const FrequencyGraph = lazy(()=>import('../components/admin/FrequencyGraph'));
+  const AdminChats = lazy(()=>import('../components/admin/AdminChats'));
   const ReviewFrequencyGraph = lazy(() => import('../components/admin/ReviewFrequencyGraph'));
 
   // page/component state
@@ -29,8 +33,15 @@ const HomeAdmin = () => {
       case "attractions":
         setSelectedSettingPage(<AdminAttractionDashboard/>);
         break;
+        case "chats":
+        let email = getEmailFromToken(); // will be later passed to the chat-service to fetch unallocated chats or his own chats 
+        setSelectedSettingPage(<AdminChats email={email}/>)
+        break;
       case "reviews":
         setSelectedSettingPage(<ReviewFrequencyGraph/>);
+        break;
+      case "offers":
+        setSelectedSettingPage(<AdminManageOffers />);
         break;
     }
   }, [selectedSetting]);
@@ -41,6 +52,8 @@ const HomeAdmin = () => {
     visits: "Manage Visit Frequency",
     attractions: "Manage Attractions",
     reviews: "Manage Reviews",
+    chats: "Chats",
+    offers: "Manage Offers",
   };
 
   return (
@@ -67,22 +80,31 @@ const HomeAdmin = () => {
                   Home
                 </div>
                 <div
-                  className="dropdown-item"
-                  onClick={() => setSelectedSetting("attractions")}
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("attractions")}
                 >
                   Manage Attraction
                 </div>
                 <div
-                  className="dropdown-item"
-                  onClick={() => setSelectedSetting("reviews")}
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("reviews")}
                 >
                   Manage Reviews
                 </div>
+                <div className = "dropdown-item" onClick={()=>setSelectedSetting("chats")}>
+                  Chats
+                </div>
                 <div
-                  className="dropdown-item"
-                  onClick={() => setSelectedSetting("visits")} // might need to change name
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("visits")} // might need to change name
                 >
-                  Manage Visits 
+                  Manage Visits
+                </div>
+                <div
+                    className="dropdown-item"
+                    onClick={() => setSelectedSetting("offers")}
+                >
+                  Manage Offers
                 </div>
               </>
 

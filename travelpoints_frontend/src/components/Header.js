@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import { getRoleFromToken } from '../utils/Auth';
 import useAuthSession from '../utils/AuthSession';
+import { CiChat2 } from "react-icons/ci";
 import '../styles/Landing.css';
 
 const Header = ({ className = '' }) => {
@@ -12,6 +13,7 @@ const Header = ({ className = '' }) => {
 
     useEffect(() => {
         setUserRole(getRoleFromToken());
+
     }, []);
 
     const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
@@ -43,6 +45,14 @@ const Header = ({ className = '' }) => {
                                     <div className="dropdown-item" onClick={() => navigate('/profile')}>Profile</div>
                                     <div className="dropdown-item" onClick={() => navigate('/wishlist')}>Wishlist</div>
                                     <div className="dropdown-item" onClick={() => navigate('/account')}>Account</div>
+                                    <div className='dropdown-item' onClick={()=> navigate('/chats')}>Chats </div>
+                                    <div className="dropdown-item" onClick={() => navigate('/offers')}>My Offers</div>
+                                </>
+                            )}
+                            {userRole === 'Admin' && (
+                                <>
+                                    <div className="dropdown-item" onClick={() => navigate('/home-admin')}>Dashboard</div>
+                                    <div className="dropdown-item" onClick={() => navigate('/offers')}>My Offers</div>
                                 </>
                             )}
                             <div className="dropdown-item" onClick={handleLogout}>
@@ -57,3 +67,11 @@ const Header = ({ className = '' }) => {
 };
 
 export default Header;
+
+
+
+
+
+
+
+

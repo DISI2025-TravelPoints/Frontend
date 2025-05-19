@@ -1,0 +1,41 @@
+.custom-success-toast {
+    background-color: #2ecc71;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    max-width: 350px;
+}
+
+.custom-success-toast .check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    color: #2ecc71;
+}
+
+.toast-text {
+    flex-grow: 1;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0;
+    align-self: flex-start;
+}
