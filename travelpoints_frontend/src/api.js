@@ -10,8 +10,6 @@ const userApi = axios.create({
     }
 });
 
-
-
 userApi.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
