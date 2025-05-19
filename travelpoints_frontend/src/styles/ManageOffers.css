@@ -106,3 +106,20 @@ select.offer-input {
     color: white;
 }
 
+@media (max-width: 600px) {
+    .manage-offers-container {
+        padding: 10px;
+    }
+
+    .buttons-row {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .preview-btn, .submit-btn, .cancel-btn {
+        width: 100%;
+    }
+}
+
+
