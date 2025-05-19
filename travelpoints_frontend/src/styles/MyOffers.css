@@ -1,0 +1,120 @@
+/*body {*/
+/*    background-image: url('../assets/v1.jpg');*/
+/*    background-size: cover;*/
+/*    background-position: bottom center;*/
+/*    background-repeat: no-repeat;*/
+/*    background-attachment: fixed;*/
+/*}*/
+
+.my-offers-root {
+    padding: 90px 24px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.my-offers-title {
+    font-weight: 700;
+    font-size: 2.8rem;
+    color: #0f736b;
+    margin-bottom: 3rem;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.offer-card {
+    display: flex;
+    align-items: stretch;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 960px;
+    height: 220px;
+    margin: 0 auto;
+}
+
+.offer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.offer-image {
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.offer-card-content {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    gap: 6px;
+}
+
+.offer-title,
+.offer-attraction,
+.offer-description,
+.offer-validity {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Poppins', sans-serif;
+}
+
+.offer-title {
+    display: flex;
+    font-size: 1.4rem!important;
+    font-family: 'Montserrat', sans-serif!important;
+    font-weight: 700!important;
+    margin-bottom: 10px!important;
+    color: #3a3f42;
+}
+
+
+.offer-attraction {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4e6eba;
+    margin-bottom: 4px;
+    margin-top: 20px;
+
+}
+
+.offer-description {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.offer-validity {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #9c2525;
+    margin-top: 14px;
+    font-family: 'Poppins', sans-serif !important;
+
+}
+
+
+@media (max-width: 700px) {
+    .offer-card {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .offer-image {
+        width: 100%;
+        height: 180px;
+    }
+
+    .offer-card-content {
+        padding: 16px;
+    }
+}
+

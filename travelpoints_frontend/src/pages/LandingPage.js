@@ -12,6 +12,7 @@ import GeoLocation from "../utils/GeoLocation";
 import Header from "../components/Header";
 import SearchBar from "../components/common/SearchBar";
 
+
 const Landing = () => {
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
@@ -66,6 +67,16 @@ const Landing = () => {
         navigate('/login');
     }
   }, []);
+    useEffect(() => {
+        const role = getRoleFromToken();
+        setUserRole(role);
+        if (role === 'Admin') {
+            navigate('/home-admin');
+        } else if (role === 'Tourist') {
+            //sau putem duce turistii la profil
+            navigate('/');
+        }
+    }, [navigate]);
 
   const handleLogout = useAuthSession(setUserRole, setDropdownOpen);
 
