@@ -11,6 +11,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import dayjs from "dayjs";
 import { getMyOffers } from "../requests/WishlistRequests";
 import { getAttractionById } from "../requests/AdminRequests";
+import backgroundImage from '../assets/v1.jpg';
+
 
 import '../styles/MyOffers.css';
 import Header from "../components/Header";
@@ -37,7 +39,17 @@ const MyOffers = () => {
     }, []);
 
     return (
-        <><Header className="header-dark-text"/>
+        <Box
+            sx={{
+                minHeight: '110vh',
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: '110%', /*cover*/
+                backgroundPosition: 'bottom center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+                pt: 10,
+            }}
+        ><Header className="header-dark-text"/>
         <Box px={{ xs: 2, md: 10 }} py={8} className="my-offers-root">
 
             <Typography variant="h3" fontWeight={600} mb={4} className="my-offers-title">
@@ -95,7 +107,7 @@ const MyOffers = () => {
                 </Stack>
             )}
         </Box>
-            </>
+            </Box>
     );
 };
 
