@@ -6,11 +6,14 @@ import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import "../styles/HomeAdmin.css";
 import "../styles/Landing.css";
 import useAuthSession from '../utils/AuthSession';
+import { getEmailFromToken } from "../utils/Auth";
+
 import AdminManageOffers from "./AdminManageOffers";
 const HomeAdmin = () => {
 
   const AdminAttractionDashboard = lazy(() => import( '../components/admin/AdminAttractionDashboard'));
   const FrequencyGraph = lazy(()=>import('../components/admin/FrequencyGraph'));
+  const AdminChats = lazy(()=>import('../components/admin/AdminChats'));
   // page/component state
   const [selectedSettingPage, setSelectedSettingPage] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,6 +31,10 @@ const HomeAdmin = () => {
       case "attractions":
         setSelectedSettingPage(<AdminAttractionDashboard/>);
         break;
+        case "chats":
+        let email = getEmailFromToken(); // will be later passed to the chat-service to fetch unallocated chats or his own chats 
+        setSelectedSettingPage(<AdminChats email={email}/>)
+        break;
       case "reviews":
         break;
       case "offers":
@@ -42,6 +49,7 @@ const HomeAdmin = () => {
     visits: "Manage Visit Frequency",
     attractions: "Manage Attractions",
     reviews: "Manage Reviews",
+    chats: "Chats"
     offers: "Manage Offers",
   };
 
@@ -79,6 +87,9 @@ const HomeAdmin = () => {
                     onClick={() => setSelectedSetting("reviews")}
                 >
                   Manage Reviews
+                </div>
+                <div className = "dropdown-item" onClick={()=>setSelectedSetting("chats")}>
+                  Chats
                 </div>
                 <div
                     className="dropdown-item"
