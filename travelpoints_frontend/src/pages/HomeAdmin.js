@@ -10,6 +10,8 @@ const HomeAdmin = () => {
 
   const AdminAttractionDashboard = lazy(() => import( '../components/admin/AdminAttractionDashboard'));
   const FrequencyGraph = lazy(()=>import('../components/admin/FrequencyGraph'));
+  const ReviewFrequencyGraph = lazy(() => import('../components/admin/ReviewFrequencyGraph'));
+
   // page/component state
   const [selectedSettingPage, setSelectedSettingPage] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,6 +30,7 @@ const HomeAdmin = () => {
         setSelectedSettingPage(<AdminAttractionDashboard/>);
         break;
       case "reviews":
+        setSelectedSettingPage(<ReviewFrequencyGraph/>);
         break;
     }
   }, [selectedSetting]);
@@ -92,7 +95,9 @@ const HomeAdmin = () => {
         </div>
       </header>
       <div className="admin-content">
-          {selectedSettingPage}
+        <React.Suspense fallback={<div>Loading...</div>}>
+        {selectedSettingPage}
+        </React.Suspense>
       </div>
     </>
   );

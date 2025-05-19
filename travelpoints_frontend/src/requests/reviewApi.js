@@ -33,5 +33,7 @@ export const deleteReview = (reviewId) =>
 export const getAverageRating = (attractionId) =>
     reviewApi.get(`/average-rating/${attractionId}`);
 
-
+export const getReviewFrequencyStats = () =>
+    reviewApi.get("/analytics/visits").then((res) => res.data);
+  
 export default reviewApi;
