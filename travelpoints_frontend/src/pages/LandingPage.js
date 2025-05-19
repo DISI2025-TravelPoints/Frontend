@@ -9,6 +9,7 @@ import useAuthSession from '../utils/AuthSession';
 import GeoLocation from "../utils/GeoLocation";
 import Header from "../components/Header";
 import SearchBar from "../components/common/SearchBar";
+import TopAttractions from '../pages/TopAttractions';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -57,12 +58,15 @@ const Landing = () => {
             <div className="landing-map">
                 <GeoLocation setUserGeohash={setUserGeohash} />
             </div>
+            
+            <TopAttractions />
 
             {/* DESTINATIONS SECTION */}
             <div className="destinations-section" style={{ background: '#f8f8f8', padding: '60px 20px' }}>
                 <Destinations />
             </div>
         </div>
+        
     );
 };
 

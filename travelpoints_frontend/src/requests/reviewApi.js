@@ -36,4 +36,7 @@ export const getAverageRating = (attractionId) =>
 export const getReviewFrequencyStats = () =>
     reviewApi.get("/analytics/visits").then((res) => res.data);
   
+export const getTopRatedAttractions = () =>
+    reviewApi.get("/analytics/top-redis").then((res) => res.data);
+
 export default reviewApi;
