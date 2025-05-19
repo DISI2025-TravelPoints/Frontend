@@ -49,7 +49,7 @@ const HomeAdmin = () => {
     visits: "Manage Visit Frequency",
     attractions: "Manage Attractions",
     reviews: "Manage Reviews",
-    chats: "Chats"
+    chats: "Chats",
     offers: "Manage Offers",
   };
 

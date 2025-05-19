@@ -46,6 +46,7 @@ const Header = ({ className = '' }) => {
                                     <div className="dropdown-item" onClick={() => navigate('/wishlist')}>Wishlist</div>
                                     <div className="dropdown-item" onClick={() => navigate('/account')}>Account</div>
                                     <div className='dropdown-item' onClick={()=> navigate('/chats')}>Chats </div>
+                                    <div className="dropdown-item" onClick={() => navigate('/offers')}>My Offers</div>
                                 </>
                             )}
                             {userRole === 'Admin' && (
