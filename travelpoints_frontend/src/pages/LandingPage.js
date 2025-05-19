@@ -12,6 +12,7 @@ import GeoLocation from "../utils/GeoLocation";
 import Header from "../components/Header";
 import SearchBar from "../components/common/SearchBar";
 
+import TopAttractions from '../pages/TopAttractions';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -102,10 +103,12 @@ const Landing = () => {
         <h2 className="title">Start the journey from where you are</h2>
       </div>
 
-      <SearchBar />
-      <div className="landing-map">
-        <GeoLocation setUserGeohash={setUserGeohash} />
-      </div>
+            <SearchBar />
+            <div className="landing-map">
+                <GeoLocation setUserGeohash={setUserGeohash} />
+            </div>
+            
+            <TopAttractions />
 
       {/* DESTINATIONS SECTION */}
       <div
