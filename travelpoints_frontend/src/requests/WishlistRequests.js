@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_LOCAL_URL } from "../api";
 
 const WL = "/api/wishlist";
+const MY_OFFERS = "/api/offers/my";
 
 const axiosAuth = axios.create({
     baseURL: `http://localhost`,
@@ -37,6 +38,15 @@ export const getUsersByAttraction = (attractionId) =>
 export const sendOffer = (payload) =>
     axiosAuth.post("/api/offers/send", payload)
         .then(r => r.data);
+
+export const getMyOffers = () =>
+    axiosAuth.get(MY_OFFERS)
+        .then(r => r.data)
+        .catch(err => {
+            console.error("Error fetching saved offers:", err);
+            return [];
+        });
+
 
 
 

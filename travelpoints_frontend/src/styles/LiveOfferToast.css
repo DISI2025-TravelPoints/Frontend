@@ -1,0 +1,60 @@
+.custom-toast {
+    border-radius: 12px !important;
+    background-color: #fff !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    padding: 14px 16px !important;
+    width: 320px;
+    color: #333;
+}
+
+.toast-offer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.toast-offer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.toast-bell-icon {
+    font-size: 18px;
+    color: #2e8b57;
+}
+
+.toast-main-line {
+    font-size: 1rem;
+    color: #2e8b57;
+}
+
+.toast-offer-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.toast-offer-description {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.toast-offer-valid {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.toast-offer-highlight {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2e8b57;
+}
+
+.Toastify__toast-container--top-right {
+    top : 20px !important;
+    right: 40px !important;
+}
+

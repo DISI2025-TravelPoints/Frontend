@@ -1,0 +1,28 @@
+.custom-error-toast {
+    background-color: #c53628;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.error-icon {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    margin-left: 24px;
+    cursor: pointer;
+    padding: 0;
+}
+

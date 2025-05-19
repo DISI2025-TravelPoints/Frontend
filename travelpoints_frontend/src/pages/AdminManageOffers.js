@@ -3,13 +3,17 @@ import "../styles/ManageOffers.css";
 import { getUsersByAttraction } from "../requests/WishlistRequests";
 import { getAllAttractions } from "../requests/AdminRequests";
 import { sendOffer } from "../requests/WishlistRequests";
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
-
+import { toast, ToastContainer } from "react-toastify";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import "react-toastify/dist/ReactToastify.css";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import "../styles/ToastStyles.css";
+import SuccessToast from "../components/SuccessToast"; //do NOT delete -> used in the toast
 
 const AdminManageOffers = () => {
     const [title, setTitle] = useState("");
@@ -32,10 +36,10 @@ const AdminManageOffers = () => {
                 styleOverrides: {
                     root: {
                         '&:hover': {
-                            backgroundColor: '#4dc690', // culoare mai intensă la hover
+                            backgroundColor: '#4dc690',
                         },
                         '&.Mui-selected:hover': {
-                            backgroundColor: '#389b6a', // intensificare pentru ziua selectată la hover
+                            backgroundColor: '#389b6a',
                         },
                     },
                 },
@@ -60,7 +64,39 @@ const AdminManageOffers = () => {
         setSelectedUsers(checked ? users.map(u => u.id) : []);
     };
 
+    // === VALIDATION INSIDE handleSubmit ===
     const handleSubmit = async () => {
+        if (!title || !description || !validUntil || !selectedAttractionId || selectedUsers.length === 0) {
+            toast(
+                ({ closeToast }) => (
+                    <div className="custom-error-toast">
+                    <span className="error-icon">
+                        <ErrorOutlineIcon fontSize="small" />
+                    </span>
+                        <span className="toast-text">All fields are required</span>
+                        <button className="toast-close" onClick={closeToast}>
+                            &times;
+                        </button>
+                    </div>
+                ),
+                {
+                    position: "bottom-right",
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    autoClose: 4000,
+                    closeButton: false,
+                    icon: false,
+                    style: {
+                        background: "transparent",
+                        boxShadow: "none",
+                        padding: 0,
+                    },
+                }
+            );
+            return;
+        }
+
         const payload = {
             title,
             description,
@@ -71,11 +107,38 @@ const AdminManageOffers = () => {
 
         try {
             await sendOffer(payload);
-            //alert("Offer sent!");
+
+            toast(
+                ({ closeToast }) => (
+                    <div className="custom-success-toast">
+                    <span className="check-icon">
+                        <CheckCircleIcon fontSize="small" />
+                    </span>
+                        <span className="toast-text">Offer successfully sent</span>
+                        <button className="toast-close" onClick={closeToast}>
+                            &times;
+                        </button>
+                    </div>
+                ),
+                {
+                    position: "bottom-right",
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    autoClose: 4000,
+                    closeButton: false,
+                    icon: false,
+                    style: {
+                        background: "transparent",
+                        boxShadow: "none",
+                        padding: 0,
+                    },
+                }
+            );
+
             resetForm();
         } catch (err) {
             console.error("Error sending offer:", err);
-           // alert("Failed to send offer.");
         }
     };
 
@@ -210,6 +273,7 @@ const AdminManageOffers = () => {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </div>
     );
 };

@@ -43,6 +43,7 @@ const Header = ({ className = '' }) => {
                                     <div className="dropdown-item" onClick={() => navigate('/profile')}>Profile</div>
                                     <div className="dropdown-item" onClick={() => navigate('/wishlist')}>Wishlist</div>
                                     <div className="dropdown-item" onClick={() => navigate('/account')}>Account</div>
+                                    <div className="dropdown-item" onClick={() => navigate('/offers')}>My Offers</div>
                                 </>
                             )}
                             <div className="dropdown-item" onClick={handleLogout}>
@@ -57,3 +58,11 @@ const Header = ({ className = '' }) => {
 };
 
 export default Header;
+
+
+
+
+
+
+
+
